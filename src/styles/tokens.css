@@ -1,0 +1,17 @@
+:root {
+  --color-brand: #f96f39;
+  --color-bg: #e9e7e3;
+  --color-black: #191919;
+  --color-white: #ffffff;
+  --color-glass: rgba(255, 255, 255, 0.65);
+  --color-glass-dark: rgba(25, 25, 25, 0.3);
+
+  --font-body: "Inter", sans-serif;
+  --font-accent: "Playfair Display", serif;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+}

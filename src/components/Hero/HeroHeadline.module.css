@@ -1,0 +1,33 @@
+.headline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-md);
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.thumb {
+  display: inline-block;
+  width: 3.5em;
+  height: 1.7em;
+  border-radius: 0.75rem;
+  vertical-align: middle;
+}
+
+.accent {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  color: var(--color-brand);
+}

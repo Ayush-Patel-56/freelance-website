@@ -1,0 +1,23 @@
+.marquee {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  font-size: clamp(4rem, 14vw, 12rem);
+  font-weight: 700;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(25, 25, 25, 0.15);
+}
+
+.track span {
+  padding-right: 2rem;
+}
