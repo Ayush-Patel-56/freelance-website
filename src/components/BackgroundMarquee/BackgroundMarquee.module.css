@@ -2,7 +2,8 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  top: 50%;
+  transform: translateY(-50%);
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
@@ -13,11 +14,36 @@
   width: max-content;
   white-space: nowrap;
   font-size: clamp(4rem, 14vw, 12rem);
-  font-weight: 700;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(25, 25, 25, 0.15);
+  line-height: 1;
 }
 
-.track span {
-  padding-right: 2rem;
+.group {
+  display: flex;
+  align-items: baseline;
+}
+
+.word {
+  display: inline-flex;
+  align-items: baseline;
+  padding-right: 0.5em;
+}
+
+.plain {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--color-black);
+}
+
+.accent {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-brand);
+}
+
+.sep {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--color-black);
+  padding-left: 0.5em;
 }

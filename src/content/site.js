@@ -35,4 +35,21 @@ export const site = {
     { label: 'Instagram', href: 'https://instagram.com' },
   ],
   marqueeText: 'Passion / Craft / Story',
+  badgeText: 'Rise and shine among your competition with a brand that stands the test of time.',
+  brandStatement: [
+    { value: 'I build ' },
+    { value: 'future-proof visual identities', bold: true },
+    { value: ' and ' },
+    { value: 'brand design systems', bold: true },
+    { value: ' grounded in ' },
+    { value: 'strong strategy', bold: true },
+    {
+      value:
+        ". I believe a website is one of the most valuable assets a business can have. That's why I focus on ",
+    },
+    { value: 'turning brand strategy into effective web design', bold: true },
+    { value: ' and ' },
+    { value: 'sustainable Webflow', bold: true },
+    { value: ' development.' },
+  ],
 }
