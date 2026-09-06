@@ -14,6 +14,8 @@ export function HeroStage() {
   const marqueeSectionRef = useRef(null)
   const badgeWrapperRef = useRef(null)
   const badgeRingRef = useRef(null)
+  const badgeTextRef = useRef(null)
+  const badgeArrowRef = useRef(null)
   const prefersReducedMotion = usePrefersReducedMotion()
 
   useGSAP(
@@ -38,14 +40,37 @@ export function HeroStage() {
       const pin = ScrollTrigger.create({
         trigger: heroRef.current,
         start: 'bottom top',
-        end: '+=100%',
+        end: '+=200%',
         pin: marqueeSectionRef.current,
         pinSpacing: true,
       })
 
+      const zoomTween = gsap.timeline({
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: 'bottom top',
+          end: '+=200%',
+          scrub: 0.6,
+        },
+      })
+
+      zoomTween
+        .to(badgeWrapperRef.current, { scale: 8, ease: 'none' }, 1)
+        .to(
+          [badgeTextRef.current, badgeArrowRef.current],
+          { opacity: 0, ease: 'none', duration: 0.6 },
+          1.2,
+        )
+        .to(
+          marqueeSectionRef.current,
+          { backgroundColor: '#f96f39', ease: 'none', duration: 0.6 },
+          1.4,
+        )
+
       return () => {
         tween.scrollTrigger?.kill()
         pin.kill()
+        zoomTween.scrollTrigger?.kill()
       }
     },
     { scope: marqueeSectionRef, dependencies: [prefersReducedMotion] },
@@ -61,7 +86,12 @@ export function HeroStage() {
         </div>
       </section>
       <section className={styles.marqueeSection} ref={marqueeSectionRef}>
-        <RotatingBadge wrapperRef={badgeWrapperRef} ringRef={badgeRingRef} />
+        <RotatingBadge
+          wrapperRef={badgeWrapperRef}
+          ringRef={badgeRingRef}
+          textRef={badgeTextRef}
+          arrowRef={badgeArrowRef}
+        />
         <BackgroundMarquee />
       </section>
     </div>
