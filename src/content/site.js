@@ -35,4 +35,5 @@ export const site = {
     { label: 'Instagram', href: 'https://instagram.com' },
   ],
   marqueeText: 'Passion / Craft / Story',
+  badgeText: 'Rise and shine among your competition with a brand that stands the test of time.',
 }
