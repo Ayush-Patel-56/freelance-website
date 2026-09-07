@@ -54,7 +54,7 @@ export function TrustAndAbout() {
       </div>
     </section>
 
-    <section className={styles.about} aria-labelledby="about-title">
+    <section id="about" className={styles.about} aria-labelledby="about-title">
       <div className={styles.aboutPanel}>
         <div className={styles.portrait} ref={portrait} aria-label="Abstract portrait illustration"><span className={styles.hair} /><span className={styles.face} /><span className={styles.glasses} /><span className={styles.shirt} /></div>
         <div className={styles.aboutContent}>

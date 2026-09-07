@@ -83,10 +83,41 @@ export function PortfolioPage({ showNav = true, showFooter = true }) {
 }
 
 export function PortfolioFooter() {
-  return <section id="contact" className={styles.contact}>
-    <p>Have a sharp idea?</p>
-    <h2>Let’s make it<br /><i>impossible</i><br />to miss.</h2>
-    <a href="mailto:hello@alexrivera.studio">hello@alexrivera.studio <Arrow /></a>
-    <footer><span>© Alex Rivera 2026</span><span>Brand & digital direction</span><span>Built with intent</span></footer>
+  const root = useRef(null)
+  const reducedMotion = usePrefersReducedMotion()
+  useGSAP(() => {
+    if (reducedMotion) return undefined
+    const lead = root.current?.querySelector(`.${styles.contactLead}`)
+    const footer = root.current?.querySelector(`.${styles.studioFooter}`)
+    if (!lead || !footer) return undefined
+    const leadTween = gsap.from([lead.querySelector('p'), lead.querySelector('h2'), lead.querySelector(`.${styles.contactForm}`)], {
+      y: 42, opacity: 0, duration: 0.72, stagger: 0.12, ease: 'power3.out', scrollTrigger: { trigger: lead, start: 'top 74%', once: true },
+    })
+    const footerTween = gsap.from(footer.querySelectorAll(`.${styles.footerMonogram}, .${styles.footerSocial}, .${styles.footerContact}, .${styles.footerMarquee}, .${styles.footerLegal}`), {
+      y: 34, opacity: 0, duration: 0.62, stagger: 0.09, ease: 'power3.out', scrollTrigger: { trigger: footer, start: 'top 78%', once: true },
+    })
+    return () => { leadTween.kill(); footerTween.kill() }
+  }, { scope: root, dependencies: [reducedMotion] })
+
+  return <section ref={root} id="contact" className={styles.contact}>
+    <div className={styles.contactLead}>
+      <p>Fluent in English, German and Spanish</p>
+      <h2>Let’s discuss<br /><i>your</i> vision.</h2>
+      <form className={styles.contactForm} onSubmit={(event) => event.preventDefault()}>
+        <label><span>Name</span><input name="name" placeholder=" " autoComplete="name" required /></label>
+        <label><span>Email</span><input name="email" type="email" placeholder=" " autoComplete="email" required /></label>
+        <label><span>Message</span><textarea name="message" placeholder=" " required /></label>
+        <label className={styles.consent}><input type="checkbox" required /><span>I have read the privacy policy and consent to the processing of my personal data for the purpose of responding to my enquiry.</span></label>
+        <button type="submit">Send a message <Arrow /></button>
+      </form>
+    </div>
+    <footer className={styles.studioFooter}>
+      <div className={styles.footerMonogram}>A<i /></div>
+      <div className={styles.footerSocial}><strong>Socials</strong><div><a href="https://linkedin.com" aria-label="LinkedIn">in</a><a href="https://instagram.com" aria-label="Instagram">ig</a></div></div>
+      <a className={styles.backTop} href="#top" aria-label="Back to top">▲</a>
+      <div className={styles.footerContact}><a href="mailto:hello@alexrivera.studio">hello@alexrivera.studio</a><a href="tel:+493012345678">+49 30 1234 5678</a></div>
+      <div className={styles.footerMarquee}><span>BASED IN BERLIN · AVAILABLE WORLDWIDE · BASED IN BERLIN · AVAILABLE WORLDWIDE · </span></div>
+      <div className={styles.footerLegal}><span>©2026 Alex Rivera. Built with intent.</span><a href="#privacy">Privacy policy</a></div>
+    </footer>
   </section>
 }

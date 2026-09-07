@@ -26,9 +26,11 @@ export const site = {
     secondary: { label: 'Services', href: '#services' },
   },
   nav: [
-    { label: 'Home', href: '#home' },
+    { label: 'Home', href: '#top', kind: 'home' },
+    { label: 'Services', href: '#services', kind: 'services' },
     { label: 'Work', href: '#work' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'About me', href: '#about', kind: 'about' },
+    { label: 'Contact', href: '#contact', kind: 'contact' },
   ],
   social: [
     { label: 'LinkedIn', href: 'https://linkedin.com' },

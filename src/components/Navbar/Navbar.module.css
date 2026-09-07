@@ -1,55 +1,11 @@
-.navbar {
-  position: fixed;
-  top: var(--space-md);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 20;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+.navbar { position: fixed; z-index: 100; inset: 0; pointer-events: none; }
+.toggle { position: fixed; z-index: 3; top: 38px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; padding: 16px 27px; color: var(--white); background: var(--ink); border: 0; border-radius: 999px; box-shadow: 0 13px 30px rgba(23,23,23,.2); font: 600 18px/1 var(--font-body); cursor: pointer; pointer-events: auto; transition: transform .24s ease, background .24s ease; }
+.toggle:hover { background: #292929; transform: translateX(-50%) translateY(-3px); }
+.toggle:after { content: '▲'; margin-left: 45px; color: var(--signal); font-size: 13px; transition: transform .28s ease; }.toggle[aria-expanded='false']:after { transform: rotate(180deg); }
+.monogram { width: 18px; height: 18px; display: block; border-radius: 50%; color: transparent; background: var(--signal); }
+.backdrop { position: absolute; inset: 0; z-index: 0; background: rgba(242,240,236,.78); backdrop-filter: blur(18px) saturate(.8); opacity: 0; pointer-events: none; }
+.cards { position: absolute; z-index: 1; inset: 132px 18px 22px; display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); grid-template-rows: minmax(280px,.86fr) minmax(350px,1.14fr); gap: 12px; visibility: hidden; pointer-events: none; }
+.cards.visible { visibility: visible; pointer-events: auto; }
 
-.toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.6rem 1.2rem;
-  border-radius: 999px;
-  border: none;
-  background: var(--color-glass);
-  backdrop-filter: blur(8px);
-  color: var(--color-black);
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.monogram {
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 50%;
-  background: var(--color-brand);
-  color: var(--color-white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-}
-
-.backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(25, 25, 25, 0.2);
-  backdrop-filter: blur(6px);
-  opacity: 0;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.cards {
-  position: fixed;
-  top: 6rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: var(--space-sm);
-}
+@media (max-width: 760px) { .toggle { top: 16px; padding: 13px 19px; font-size: 14px; }.toggle:after { margin-left: 28px; }.cards { inset: 86px 8px 8px; grid-template-columns: 1fr; grid-template-rows: repeat(5, minmax(185px,auto)); gap: 8px; overflow: auto; padding-bottom: 8px; } }
+@media (prefers-reduced-motion: reduce) { .toggle, .toggle:after { transition: none; } }

@@ -6,6 +6,7 @@ import { SocialLinks } from './components/SocialLinks/SocialLinks'
 import { ScrollCue } from './components/ScrollCue/ScrollCue'
 import { ProcessServices } from './components/ProcessServices/ProcessServices'
 import { TrustAndAbout } from './components/TrustAndAbout/TrustAndAbout'
+import { FaqSection } from './components/FaqSection/FaqSection'
 import styles from './App.module.css'
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
       <PortfolioPage showNav={false} showFooter={false} />
       <ProcessServices />
       <TrustAndAbout />
+      <FaqSection />
       <PortfolioFooter />
       <SocialLinks />
       <ScrollCue />
