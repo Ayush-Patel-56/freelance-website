@@ -44,7 +44,7 @@ function WorkCard({ project, isActive, onActivate, cardRef }) {
   </article>
 }
 
-export function PortfolioPage({ showNav = true, showFooter = true }) {
+export function PortfolioPage({ showNav = true, showFooter = true, showHero = true }) {
   const [activeProject, setActiveProject] = useState(0)
   const root = useRef(null)
   const cardRefs = useRef([])
@@ -68,11 +68,11 @@ export function PortfolioPage({ showNav = true, showFooter = true }) {
 
   return <div ref={root} className={styles.portfolio}>
     {showNav && <nav className={styles.nav} aria-label="Primary navigation"><a className={styles.brand} href="#top"><i /> Alex Rivera <b>⌄</b></a><div className={styles.navLinks}><a href="#work">My work</a><a href="#contact">Contact <Arrow /></a></div></nav>}
-    <header id="top" className={styles.hero}>
+    {showHero && <header id="top" className={styles.hero}>
       <p className={styles.eyebrow}><span /> Independent digital designer · 2026</p>
       <h1 className={styles.heroTitle} aria-label="Design for brands that move differently."><span>Design for</span><span>brands</span><span className={styles.offsetLine}>that move</span><span><i>differently.</i></span></h1>
       <div className={styles.heroBottom}><div className={styles.socialPills}><a href="https://linkedin.com">Li</a><a href="https://instagram.com">In</a></div><a className={styles.roundButton} href="#work">Explore work <span>↓</span></a></div>
-    </header>
+    </header>}
     <section id="work" className={`${styles.work} ${styles.reveal}`} aria-labelledby="work-heading">
       <div className={styles.workHeading}><p>01 — 04</p><h2 id="work-heading">My work<span>.</span></h2><p>A considered collection<br />of recent collaborations.</p></div>
       <div className={styles.projectList}>{projects.map((project, index) => <WorkCard key={project.title} project={project} isActive={index === activeProject} onActivate={() => setActiveProject(index)} cardRef={(element) => { cardRefs.current[index] = element }} />)}</div>

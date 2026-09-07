@@ -16,7 +16,7 @@ export default function App() {
         <HeroStage />
         <BrandStatement />
       </section>
-      <PortfolioPage showNav={false} showFooter={false} />
+      <PortfolioPage showNav={false} showFooter={false} showHero={false} />
       <ProcessServices />
       <TrustAndAbout />
       <FaqSection />
