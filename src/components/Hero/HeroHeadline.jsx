@@ -3,6 +3,7 @@ import { useGSAP } from '@gsap/react'
 import { gsap } from '../../lib/gsap'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { site } from '../../content/site'
+import { HeroActions } from './HeroActions'
 import styles from './HeroHeadline.module.css'
 
 function HeadlinePart({ part }) {
@@ -11,9 +12,11 @@ function HeadlinePart({ part }) {
       <span
         role="img"
         aria-label={part.alt}
-        className={styles.thumb}
+        className={`${styles.thumb} ${part.aspect === 'book' ? styles.thumbBook : styles.thumbScreen}`}
         data-hero-thumb
-        style={{ background: part.gradient }}
+        style={{
+          backgroundImage: part.src ? `url(${part.src})` : part.gradient,
+        }}
       />
     )
   }
@@ -42,7 +45,7 @@ export function HeroHeadline() {
       const thumbs = rootRef.current.querySelectorAll('[data-hero-thumb]')
       thumbs.forEach((thumb, index) => {
         gsap.to(thumb, {
-          yPercent: index % 2 === 0 ? 20 : -20,
+          yPercent: index % 2 === 0 ? 15 : -15,
           ease: 'none',
           scrollTrigger: {
             trigger: rootRef.current,
@@ -63,10 +66,11 @@ export function HeroHeadline() {
           <HeadlinePart key={index} part={part} />
         ))}
       </span>
-      <span className={styles.line}>
+      <span className={`${styles.line} ${styles.lineTwo}`}>
         {site.headline.lineTwo.map((part, index) => (
           <HeadlinePart key={index} part={part} />
         ))}
+        <HeroActions />
       </span>
     </h1>
   )

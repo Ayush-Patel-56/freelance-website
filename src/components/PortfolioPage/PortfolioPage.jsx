@@ -90,8 +90,14 @@ export function PortfolioFooter() {
     const lead = root.current?.querySelector(`.${styles.contactLead}`)
     const footer = root.current?.querySelector(`.${styles.studioFooter}`)
     if (!lead || !footer) return undefined
-    const leadTween = gsap.from([lead.querySelector('p'), lead.querySelector('h2'), lead.querySelector(`.${styles.contactForm}`)], {
-      y: 42, opacity: 0, duration: 0.72, stagger: 0.12, ease: 'power3.out', scrollTrigger: { trigger: lead, start: 'top 74%', once: true },
+    const leadTween = gsap.from([
+      lead.querySelector(`.${styles.contactEyebrow}`),
+      lead.querySelector(`.${styles.contactTitle}`),
+      lead.querySelector(`.${styles.contactBio}`),
+      lead.querySelector(`.${styles.contactDirect}`),
+      lead.querySelector(`.${styles.contactForm}`),
+    ].filter(Boolean), {
+      y: 38, opacity: 0, duration: 0.72, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: lead, start: 'top 74%', once: true },
     })
     const footerTween = gsap.from(footer.querySelectorAll(`.${styles.footerMonogram}, .${styles.footerSocial}, .${styles.footerContact}, .${styles.footerMarquee}, .${styles.footerLegal}`), {
       y: 34, opacity: 0, duration: 0.62, stagger: 0.09, ease: 'power3.out', scrollTrigger: { trigger: footer, start: 'top 78%', once: true },
@@ -101,14 +107,47 @@ export function PortfolioFooter() {
 
   return <section ref={root} id="contact" className={styles.contact}>
     <div className={styles.contactLead}>
-      <p>Fluent in English, German and Spanish</p>
-      <h2>Let’s discuss<br /><i>your</i> vision.</h2>
+      <div className={styles.contactHeader}>
+        <p className={styles.contactEyebrow}>Fluent in English, German and Spanish</p>
+        <h2 className={styles.contactTitle}>Let’s discuss<br /><i>your</i> vision.</h2>
+        <p className={styles.contactBio}>
+          Have a project in mind, an inquiry, or just want to explore possibilities?
+          Let’s craft something timeless together.
+        </p>
+        <div className={styles.contactDirect}>
+          <div className={styles.contactDirectItem}>
+            <span className={styles.contactDirectLabel}>Direct inquiry</span>
+            <a href="mailto:hello@alexrivera.studio" className={styles.contactDirectLink}>
+              hello@alexrivera.studio <Arrow />
+            </a>
+          </div>
+          <div className={styles.contactDirectItem}>
+            <span className={styles.contactDirectLabel}>Availability</span>
+            <span className={styles.contactDirectValue}>Taking select projects for 2026</span>
+          </div>
+        </div>
+      </div>
       <form className={styles.contactForm} onSubmit={(event) => event.preventDefault()}>
-        <label><span>Name</span><input name="name" placeholder=" " autoComplete="name" required /></label>
-        <label><span>Email</span><input name="email" type="email" placeholder=" " autoComplete="email" required /></label>
-        <label><span>Message</span><textarea name="message" placeholder=" " required /></label>
-        <label className={styles.consent}><input type="checkbox" required /><span>I have read the privacy policy and consent to the processing of my personal data for the purpose of responding to my enquiry.</span></label>
-        <button type="submit">Send a message <Arrow /></button>
+        <label className={styles.field} htmlFor="contact-name">
+          <span className={styles.fieldTitle}>Your name</span>
+          <input id="contact-name" name="name" type="text" autoComplete="name" required />
+        </label>
+        <label className={styles.field} htmlFor="contact-email">
+          <span className={styles.fieldTitle}>Your email</span>
+          <input id="contact-email" name="email" type="email" autoComplete="email" required />
+        </label>
+        <label className={`${styles.field} ${styles.fieldArea}`} htmlFor="contact-message">
+          <span className={styles.fieldTitle}>Your message</span>
+          <textarea id="contact-message" name="message" rows="4" required />
+        </label>
+        <label className={styles.consent}>
+          <input type="checkbox" required />
+          <span>I have read the privacy policy and consent to the processing of my personal data for the purpose of responding to my enquiry.</span>
+        </label>
+        <button type="submit" className={styles.submitBtn}>
+          <span>Send a message</span>
+          <Arrow />
+        </button>
       </form>
     </div>
     <footer className={styles.studioFooter}>

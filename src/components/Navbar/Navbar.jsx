@@ -69,10 +69,9 @@ export function Navbar() {
         aria-label={site.name}
         onClick={toggle}
       >
-        <span className={styles.monogram} aria-hidden="true">
-          {site.name.charAt(0)}
-        </span>
-        {site.name}
+        <span className={styles.dot} aria-hidden="true" />
+        <span className={styles.name}>{site.name}</span>
+        <span className={styles.chevron} aria-hidden="true">▼</span>
       </button>
       <div className={styles.backdrop} ref={backdropRef} onClick={closeMenu} aria-hidden="true" />
       <div className={`${styles.cards} ${isVisible ? styles.visible : ''}`} aria-label="Site navigation">

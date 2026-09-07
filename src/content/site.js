@@ -1,23 +1,27 @@
 export const site = {
-  name: 'Alex Rivera',
-  tagline: "I'm Alex Rivera, Berlin based..",
+  name: 'Marek Vataha',
+  tagline: "I'm Marek Vataha, Prague based..",
+  avatar: '/src/assets/avatar.jpg',
   headline: {
     lineOne: [
-      { type: 'text', value: 'BRAND & WEB' },
+      { type: 'text', value: 'BRAND' },
       {
         type: 'image',
         alt: 'Brand identity project thumbnail',
-        gradient: 'linear-gradient(135deg, #f96f39, #e9e7e3)',
+        src: '/src/assets/thumb-brand.jpg',
+        aspect: 'book',
+      },
+      { type: 'text', value: '& WEB' },
+      {
+        type: 'image',
+        alt: 'Webflow project thumbnail',
+        src: '/src/assets/thumb-web.jpg',
+        aspect: 'screen',
       },
       { type: 'accent', value: 'designer,' },
     ],
     lineTwo: [
       { type: 'text', value: 'WEBFLOW' },
-      {
-        type: 'image',
-        alt: 'Webflow project thumbnail',
-        gradient: 'linear-gradient(135deg, #191919, #f96f39)',
-      },
       { type: 'accent', value: 'developer.' },
     ],
   },

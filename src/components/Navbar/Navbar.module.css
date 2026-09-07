@@ -1,11 +1,55 @@
 .navbar { position: fixed; z-index: 100; inset: 0; pointer-events: none; }
-.toggle { position: fixed; z-index: 3; top: 38px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; padding: 16px 27px; color: var(--white); background: var(--ink); border: 0; border-radius: 999px; box-shadow: 0 13px 30px rgba(23,23,23,.2); font: 600 18px/1 var(--font-body); cursor: pointer; pointer-events: auto; transition: transform .24s ease, background .24s ease; }
-.toggle:hover { background: #292929; transform: translateX(-50%) translateY(-3px); }
-.toggle:after { content: '▲'; margin-left: 45px; color: var(--signal); font-size: 13px; transition: transform .28s ease; }.toggle[aria-expanded='false']:after { transform: rotate(180deg); }
-.monogram { width: 18px; height: 18px; display: block; border-radius: 50%; color: transparent; background: var(--signal); }
+.toggle {
+  position: fixed;
+  z-index: 101;
+  top: 24px;
+  left: 51%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 22px 10px 20px;
+  color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1.5px solid #4361ee;
+  border-radius: 999px;
+  box-shadow: 0 0 20px rgba(67, 97, 238, 0.42), 0 4px 14px rgba(23, 23, 23, 0.06);
+  font: 600 15px/1 var(--font-body);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.toggle:hover {
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 0 28px rgba(67, 97, 238, 0.65), 0 6px 18px rgba(23, 23, 23, 0.08);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--signal, #ef5323);
+  flex-shrink: 0;
+}
+.name {
+  color: #1a1a1a;
+  letter-spacing: -0.01em;
+}
+.chevron {
+  display: inline-block;
+  font-size: 9px;
+  margin-left: 10px;
+  color: #1a1a1a;
+  transition: transform 0.28s ease;
+}
+.toggle[aria-expanded='true'] .chevron {
+  transform: rotate(180deg);
+}
 .backdrop { position: absolute; inset: 0; z-index: 0; background: rgba(242,240,236,.78); backdrop-filter: blur(18px) saturate(.8); opacity: 0; pointer-events: none; }
 .cards { position: absolute; z-index: 1; inset: 132px 18px 22px; display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); grid-template-rows: minmax(280px,.86fr) minmax(350px,1.14fr); gap: 12px; visibility: hidden; pointer-events: none; }
 .cards.visible { visibility: visible; pointer-events: auto; }
 
-@media (max-width: 760px) { .toggle { top: 16px; padding: 13px 19px; font-size: 14px; }.toggle:after { margin-left: 28px; }.cards { inset: 86px 8px 8px; grid-template-columns: 1fr; grid-template-rows: repeat(5, minmax(185px,auto)); gap: 8px; overflow: auto; padding-bottom: 8px; } }
-@media (prefers-reduced-motion: reduce) { .toggle, .toggle:after { transition: none; } }
+@media (max-width: 760px) {
+  .toggle { top: 16px; padding: 9px 18px; font-size: 14px; }
+  .cards { inset: 86px 8px 8px; grid-template-columns: 1fr; grid-template-rows: repeat(5, minmax(185px,auto)); gap: 8px; overflow: auto; padding-bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .toggle, .chevron { transition: none; } }

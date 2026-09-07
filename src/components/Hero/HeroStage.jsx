@@ -2,9 +2,9 @@ import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap, ScrollTrigger } from '../../lib/gsap'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import { site } from '../../content/site'
 import { HeroTagline } from './HeroTagline'
 import { HeroHeadline } from './HeroHeadline'
-import { HeroActions } from './HeroActions'
 import { RotatingBadge } from './RotatingBadge'
 import { BackgroundMarquee } from '../BackgroundMarquee/BackgroundMarquee'
 import styles from './HeroStage.module.css'
@@ -79,10 +79,38 @@ export function HeroStage() {
   return (
     <div className={styles.stage}>
       <section className={styles.hero} ref={heroRef}>
+        <div className={styles.heroNotch}>
+          <span className={styles.notchLetter}>{site.name.charAt(0)}</span>
+          <img src={site.avatar} alt={site.name} className={styles.notchAvatar} />
+        </div>
         <div className={styles.heroContent}>
           <HeroTagline />
           <HeroHeadline />
-          <HeroActions />
+        </div>
+        <div className={styles.heroBottomBar}>
+          <div className={styles.socialIcons}>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className={styles.circleBtn}
+            >
+              in
+            </a>
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className={styles.circleBtn}
+            >
+              f
+            </a>
+          </div>
+          <a href="#work" className={styles.scrollDownBtn} aria-label="Scroll down">
+            ▼
+          </a>
         </div>
       </section>
       <section className={styles.marqueeSection} ref={marqueeSectionRef}>

@@ -1,18 +1,20 @@
 .tagline {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.9rem;
-  border-radius: 999px;
-  background: var(--color-white);
-  font-size: 0.875rem;
-  margin-bottom: var(--space-sm);
+  gap: 0.6rem;
+  background: transparent;
+  font-size: clamp(1rem, 1.25vw, 1.2rem);
+  font-weight: 500;
+  color: #1c1c1c;
+  letter-spacing: -0.02em;
+  margin: 0 0 clamp(1rem, 2.2vh, 1.8rem);
 }
 
 .dot {
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 0.65rem;
+  height: 0.65rem;
   border-radius: 50%;
-  background: var(--color-brand);
+  background: var(--signal, #ef5323);
+  box-shadow: 0 0 8px rgba(239, 83, 35, 0.4);
   flex-shrink: 0;
 }

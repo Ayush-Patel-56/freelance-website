@@ -2,7 +2,6 @@ import { PortfolioFooter, PortfolioPage } from './components/PortfolioPage/Portf
 import { Navbar } from './components/Navbar/Navbar'
 import { HeroStage } from './components/Hero/HeroStage'
 import { BrandStatement } from './components/BrandStatement/BrandStatement'
-import { SocialLinks } from './components/SocialLinks/SocialLinks'
 import { ScrollCue } from './components/ScrollCue/ScrollCue'
 import { ProcessServices } from './components/ProcessServices/ProcessServices'
 import { TrustAndAbout } from './components/TrustAndAbout/TrustAndAbout'
@@ -22,7 +21,6 @@ export default function App() {
       <TrustAndAbout />
       <FaqSection />
       <PortfolioFooter />
-      <SocialLinks />
       <ScrollCue />
     </div>
   )

@@ -1,32 +1,145 @@
 .stage {
   position: relative;
+  background: #f1efe9;
+  padding: 10px 10px 0;
 }
 
 .hero {
   position: relative;
   z-index: 2;
   width: 100%;
-  min-height: 100vh;
-  padding: 10rem var(--space-md) var(--space-xl);
+  min-height: 94vh;
+  padding: clamp(90px, 12vh, 140px) clamp(24px, 4.5vw, 64px) clamp(28px, 4vh, 48px);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  background: var(--color-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 0 0 2.5rem 2.5rem;
-  box-shadow: 0 1rem 3rem rgba(25, 25, 25, 0.06);
+  justify-content: space-between;
+  background: #ffffff;
+  border-radius: 2.2rem;
+  box-shadow: 0 1rem 3rem rgba(25, 25, 25, 0.05);
+  overflow: hidden;
+}
+
+.heroNotch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 16px 22px 14px 18px;
+  background: #f1efe9;
+  border-bottom-right-radius: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+}
+
+.heroNotch::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -2rem;
+  width: 2rem;
+  height: 2rem;
+  border-top-left-radius: 2rem;
+  box-shadow: -1rem 0 0 0 #f1efe9;
+  pointer-events: none;
+}
+
+.heroNotch::after {
+  content: '';
+  position: absolute;
+  bottom: -2rem;
+  left: 0;
+  width: 2rem;
+  height: 2rem;
+  border-top-left-radius: 2rem;
+  box-shadow: 0 -1rem 0 0 #f1efe9;
+  pointer-events: none;
+}
+
+.notchLetter {
+  font-family: var(--font-body);
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 400;
+  line-height: 1;
+  color: #141414;
+  letter-spacing: -0.06em;
+}
+
+.notchAvatar {
+  width: clamp(38px, 3.4vw, 48px);
+  height: clamp(38px, 3.4vw, 48px);
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--signal, #ef5323);
+  box-shadow: 0 4px 12px rgba(239, 83, 35, 0.28);
 }
 
 .heroContent {
   width: 100%;
-  max-width: 72rem;
-  margin: 0 auto;
+  max-width: 82rem;
+  margin: auto 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
+  z-index: 2;
+}
+
+.heroBottomBar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 3;
+  padding-top: 24px;
+}
+
+.socialIcons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.circleBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(24, 24, 24, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.circleBtn:hover {
+  background: #1a1a1a;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.scrollDownBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(24, 24, 24, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 10px;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.scrollDownBtn:hover {
+  background: #1a1a1a;
+  color: #ffffff;
+  transform: translateY(2px);
 }
 
 .marqueeSection {
@@ -34,4 +147,25 @@
   z-index: 0;
   min-height: 100vh;
   margin-top: -4rem;
+}
+
+@media (max-width: 760px) {
+  .stage {
+    padding: 6px 6px 0;
+  }
+  .hero {
+    border-radius: 1.6rem;
+    min-height: 88vh;
+    padding: 85px 16px 24px;
+  }
+  .heroNotch {
+    padding: 12px 16px 10px 14px;
+  }
+  .notchLetter {
+    font-size: 26px;
+  }
+  .notchAvatar {
+    width: 34px;
+    height: 34px;
+  }
 }
