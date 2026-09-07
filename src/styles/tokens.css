@@ -1,14 +1,18 @@
 :root {
+  --ink: #171717;
+  --paper: #e9e7e2;
+  --white: #fbfaf8;
+  --signal: #ff5b1f;
+  --muted: #6d6b67;
+  --font-body: "Arial Nova", "Helvetica Neue", Arial, sans-serif;
+  /* Shared by the original portfolio sections retained above the new work page. */
   --color-brand: #f96f39;
   --color-bg: #e9e7e3;
   --color-black: #191919;
   --color-white: #ffffff;
   --color-glass: rgba(255, 255, 255, 0.65);
   --color-glass-dark: rgba(25, 25, 25, 0.3);
-
-  --font-body: "Inter", sans-serif;
-  --font-accent: "Playfair Display", serif;
-
+  --font-accent: "Playfair Display", Georgia, serif;
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 2rem;
