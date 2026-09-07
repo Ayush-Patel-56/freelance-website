@@ -9,9 +9,9 @@ const clientRows = [
   ['MORROW', 'FIELD /', 'kin.', 'RITUAL', 'NØRTH /'],
 ]
 const testimonials = [
-  { quote: 'Working with Alex gave our company a new sense of focus. He captured the heart of our work and made it easy for the right people to recognise us.', name: 'Maya Phillips', role: 'Founder, Morrow' },
+  { quote: 'Working with Alex gave our company a new sense of focus. He captured the heart of our work and made it easy for the right people to recognise us.', name: 'Maya Phillips', role: 'Founder, Morrow', logo: 'Morrow' },
   { quote: 'Thoughtful, fast, and unusually clear. Every decision had a reason behind it, and the result is a brand we are proud to bring into the world.', name: 'Noah Reed', role: 'Creative Director' },
-  { quote: 'From the first conversation to launch, Alex understood our ambitions. The finished site has helped us speak with confidence and grow with intention.', name: 'Rae Sullivan', role: 'Co-founder, North' },
+  { quote: 'From the first conversation to launch, Alex understood our ambitions. The finished site has helped us speak with confidence and grow with intention.', name: 'Rae Sullivan', role: 'Co-founder, North', logo: 'NØRTH' },
 ]
 
 export function TrustAndAbout() {
@@ -30,7 +30,7 @@ export function TrustAndAbout() {
     const feedbackTimeline = gsap.timeline({
       scrollTrigger: { trigger: `.${styles.testimonials}`, start: 'top bottom', end: 'bottom top', scrub: 0.8 },
     })
-    feedbackTimeline.fromTo(disc.current, { yPercent: -52, rotate: -28 }, { yPercent: 10, rotate: 220, duration: 1.2, ease: 'none' }, 0)
+    feedbackTimeline.fromTo(disc.current, { yPercent: -16, rotate: -28 }, { yPercent: 10, rotate: 220, duration: 1.2, ease: 'none' }, 0)
     const cardPositions = [
       { x: -46, y: -88, rotation: -1.5 },
       { x: 0, y: 82, rotation: 0 },
@@ -68,7 +68,7 @@ export function TrustAndAbout() {
     <section className={styles.testimonials} aria-labelledby="testimonials-title">
       <h2 id="testimonials-title">Kind words</h2>
       <div className={styles.disc} ref={disc} aria-hidden="true"><svg viewBox="0 0 500 500"><defs><path id="orbit" d="M250,250 m-187,0 a187,187 0 1,1 374,0 a187,187 0 1,1 -374,0" /></defs><text><textPath href="#orbit">AT THE END OF THE DAY, YOUR SATISFACTION MATTERS MOST · AT THE END OF THE DAY, YOUR SATISFACTION MATTERS MOST · </textPath></text></svg><span>“</span></div>
-      <div className={styles.testimonialGrid}>{testimonials.map((item, index) => <blockquote className={styles.testimonial} key={item.name} ref={(element) => { cards.current[index] = element }}><p>“{item.quote}”</p><footer><strong>{item.name}</strong><span>{item.role}</span></footer></blockquote>)}</div>
+      <div className={styles.testimonialGrid}>{testimonials.map((item, index) => <blockquote className={styles.testimonial} key={item.name} ref={(element) => { cards.current[index] = element }}><p>“{item.quote}”</p><footer><div className={styles.testimonialMeta}><strong>{item.name}</strong><span>{item.role}</span></div>{item.logo && <span className={styles.testimonialLogo}>{item.logo}</span>}</footer></blockquote>)}</div>
     </section>
   </div>
 }
