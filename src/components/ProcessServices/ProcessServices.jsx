@@ -1,7 +1,4 @@
-import { useRef, useState } from 'react'
-import { useGSAP } from '@gsap/react'
-import { gsap } from '../../lib/gsap'
-import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import { useState } from 'react'
 import styles from './ProcessServices.module.css'
 
 const processSteps = [
@@ -30,37 +27,13 @@ function ServiceArtwork({ palette, title }) {
 }
 
 export function ProcessServices() {
-  const processRef = useRef(null)
-  const cardsRef = useRef([])
-  const prefersReducedMotion = usePrefersReducedMotion()
   const [activeService, setActiveService] = useState(2)
 
-  useGSAP(() => {
-    const cards = cardsRef.current.filter(Boolean)
-    if (prefersReducedMotion) return undefined
-    gsap.set(cards, { zIndex: (index) => cards.length - index })
-    gsap.set(cards.slice(1), {
-      y: (index) => 30 * (index + 1),
-      x: (index) => 10 * (index + 1),
-      opacity: (index) => 0.42 - index * 0.06,
-      scale: (index) => 0.97 - index * 0.025,
-    })
-    const timeline = gsap.timeline({
-      scrollTrigger: { trigger: processRef.current, start: 'top top', end: '+=240%', scrub: 0.7, pin: true },
-    })
-    cards.slice(1).forEach((card, index) => {
-      timeline.to(cards[index], { y: -36, scale: 0.93, opacity: 0.28, duration: 1 }, index)
-      timeline.set(card, { zIndex: cards.length + index + 1 }, index)
-      timeline.to(card, { x: 0, y: 0, scale: 1, opacity: 1, duration: 1 }, index)
-    })
-    return () => timeline.kill()
-  }, { scope: processRef, dependencies: [prefersReducedMotion] })
-
   return <>
-    <section className={styles.process} ref={processRef} aria-labelledby="process-title">
+    <section className={styles.process} aria-labelledby="process-title">
       <div className={styles.processHeading}><p>How we work</p><h2 id="process-title">My Process</h2></div>
       <div className={styles.stack}>
-        {processSteps.map((step, index) => <article className={styles.processCard} ref={(element) => { cardsRef.current[index] = element }} key={step.number}>
+        {processSteps.map((step) => <article className={styles.processCard} key={step.number}>
           <div className={styles.processCardTop}><h3>{step.title}</h3><span>{step.number}</span></div>
           <ProcessArtwork theme={step.theme} />
           <p>{step.text}</p>
