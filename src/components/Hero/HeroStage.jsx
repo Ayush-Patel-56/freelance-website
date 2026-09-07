@@ -40,7 +40,7 @@ export function HeroStage() {
       const pin = ScrollTrigger.create({
         trigger: heroRef.current,
         start: 'bottom top',
-        end: '+=200%',
+        end: '+=100%',
         pin: marqueeSectionRef.current,
         pinSpacing: true,
       })
@@ -49,22 +49,22 @@ export function HeroStage() {
         scrollTrigger: {
           trigger: heroRef.current,
           start: 'bottom top',
-          end: '+=200%',
+          end: '+=100%',
           scrub: 0.6,
         },
       })
 
       zoomTween
-        .to(badgeWrapperRef.current, { scale: 8, ease: 'none' }, 1)
+        .to(badgeWrapperRef.current, { scale: 8, ease: 'power1.inOut', duration: 1.6 }, 0)
         .to(
           [badgeTextRef.current, badgeArrowRef.current],
-          { opacity: 0, ease: 'none', duration: 0.6 },
-          1.2,
+          { opacity: 0, ease: 'none', duration: 0.4 },
+          0.9,
         )
         .to(
           marqueeSectionRef.current,
-          { backgroundColor: '#f96f39', ease: 'none', duration: 0.6 },
-          1.4,
+          { backgroundColor: '#f96f39', ease: 'none', duration: 0.4 },
+          1.1,
         )
 
       return () => {
