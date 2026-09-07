@@ -32,9 +32,9 @@ export function TrustAndAbout() {
     })
     feedbackTimeline.fromTo(disc.current, { yPercent: -16, rotate: -28 }, { yPercent: 10, rotate: 220, duration: 1.2, ease: 'none' }, 0)
     const cardPositions = [
-      { x: -46, y: -88, rotation: -1.5 },
-      { x: 0, y: 82, rotation: 0 },
-      { x: 46, y: -32, rotation: 1.5 },
+      { x: -46, y: 32, rotation: -1.5 },
+      { x: 0, y: 202, rotation: 0 },
+      { x: 46, y: 88, rotation: 1.5 },
     ]
     cards.current.filter(Boolean).forEach((card, index) => {
       const position = cardPositions[index]
