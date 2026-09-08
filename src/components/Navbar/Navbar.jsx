@@ -26,7 +26,7 @@ export function Navbar() {
       const cards = cardRefs.current.filter(Boolean)
       if (prefersReducedMotion) {
         gsap.set(backdropRef.current, { opacity: isOpen ? 1 : 0, pointerEvents: isOpen ? 'auto' : 'none' })
-        gsap.set(cards, { opacity: isOpen ? 1 : 0, y: 0, scale: 1, rotate: 0 })
+        gsap.set(cards, { opacity: isOpen ? 1 : 0, x: 0, y: 0, scale: 1, rotate: 0 })
         if (!isOpen && isVisible) setIsVisible(false)
         return
       }
@@ -34,27 +34,29 @@ export function Navbar() {
       gsap.killTweensOf([backdropRef.current, ...cards])
       if (isOpen) {
         gsap.to(backdropRef.current, { opacity: 1, pointerEvents: 'auto', duration: 0.3 })
-        gsap.fromTo(
-          cards,
-          { opacity: 0, y: 84, scale: 0.92, rotate: 0 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            rotate: 0,
-            duration: 0.62,
-            stagger: 0.075,
-            ease: 'power3.out',
-          },
-        )
+        // Opening always restores the static grid. The drop is reserved for closing.
+        gsap.set(cards, { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 })
       } else if (isVisible) {
-        const closeTimeline = gsap.timeline({ onComplete: () => setIsVisible(false) })
-        closeTimeline.to(cards, { opacity: 0, y: 180, scale: 0.96, duration: 0.44, stagger: { each: 0.055, from: 'end' }, ease: 'power3.in' })
+        const closeTimeline = gsap.timeline({
+          onComplete: () => {
+            gsap.set(cards, { x: 0, y: 0, scale: 1, rotate: 0 })
+            setIsVisible(false)
+          },
+        })
+        closeTimeline.to(cards, {
+          opacity: 0,
+          x: (index) => [-48, -18, 22, 46, -8][index] ?? 0,
+          y: (index) => 190 + index * 24,
+          rotate: (index) => [-5, 3, -3, 5, -4][index] ?? 0,
+          scale: 0.96,
+          duration: 0.52,
+          ease: 'power3.in',
+        })
           .to(backdropRef.current, { opacity: 0, pointerEvents: 'none', duration: 0.22 }, '-=0.18')
         return () => closeTimeline.kill()
       } else {
         gsap.set(backdropRef.current, { opacity: 0, pointerEvents: 'none' })
-        gsap.set(cards, { opacity: 0, y: 84 })
+        gsap.set(cards, { opacity: 0, x: 0, y: 0, scale: 1, rotate: 0 })
       }
     },
     { scope: rootRef, dependencies: [isOpen, isVisible, prefersReducedMotion] },

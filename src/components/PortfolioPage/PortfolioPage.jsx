@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
-import { gsap } from '../../lib/gsap'
+import { gsap, ScrollTrigger } from '../../lib/gsap'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import styles from './PortfolioPage.module.css'
 
@@ -54,7 +54,20 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
     const intro = gsap.timeline({ defaults: { ease: 'power3.out' } })
     intro.from(`.${styles.nav}`, { y: -28, opacity: 0, duration: 0.75 }).from(`.${styles.eyebrow}`, { y: 18, opacity: 0, duration: 0.5 }, '-=0.35').from(`.${styles.heroTitle} span`, { yPercent: 115, stagger: 0.08, duration: 0.9 }, '-=0.25').from(`.${styles.heroBottom}`, { y: 22, opacity: 0, duration: 0.55 }, '-=0.45')
     gsap.utils.toArray(`.${styles.reveal}`).forEach((element) => gsap.from(element, { y: 28, opacity: 0, duration: 0.7, ease: 'power2.out', scrollTrigger: { trigger: element, start: 'top 86%', once: true } }))
-    return () => intro.kill()
+
+    // The pinned hero above this section changes the document height after mount.
+    // Recalculate once layout has settled so the work cards are not left hidden.
+    let refreshFrame = requestAnimationFrame(() => {
+      refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh())
+    })
+    const refreshTriggers = () => ScrollTrigger.refresh()
+    window.addEventListener('load', refreshTriggers, { once: true })
+
+    return () => {
+      cancelAnimationFrame(refreshFrame)
+      window.removeEventListener('load', refreshTriggers)
+      intro.kill()
+    }
   }, { scope: root, dependencies: [reducedMotion] })
 
   useGSAP(() => {

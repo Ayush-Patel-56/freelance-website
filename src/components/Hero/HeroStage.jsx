@@ -23,6 +23,7 @@ export function HeroStage() {
       if (prefersReducedMotion) return
 
       gsap.set(badgeWrapperRef.current, { xPercent: -50 })
+      const badgeScrollDistance = '+=55%'
 
       const tween = gsap.timeline({
         scrollTrigger: {
@@ -34,13 +35,13 @@ export function HeroStage() {
       })
 
       tween
-        .fromTo(badgeWrapperRef.current, { yPercent: -105 }, { yPercent: -50, ease: 'none' }, 0)
+        .fromTo(badgeWrapperRef.current, { yPercent: -105 }, { yPercent: 0, ease: 'none' }, 0)
         .to(badgeRingRef.current, { rotate: 360, ease: 'none' }, 0)
 
       const pin = ScrollTrigger.create({
         trigger: heroRef.current,
         start: 'bottom top',
-        end: '+=100%',
+        end: badgeScrollDistance,
         pin: marqueeSectionRef.current,
         pinSpacing: true,
       })
@@ -49,7 +50,7 @@ export function HeroStage() {
         scrollTrigger: {
           trigger: heroRef.current,
           start: 'bottom top',
-          end: '+=100%',
+          end: badgeScrollDistance,
           scrub: 0.6,
         },
       })
@@ -108,9 +109,6 @@ export function HeroStage() {
               f
             </a>
           </div>
-          <a href="#work" className={styles.scrollDownBtn} aria-label="Scroll down">
-            ▼
-          </a>
         </div>
       </section>
       <section className={styles.marqueeSection} ref={marqueeSectionRef}>

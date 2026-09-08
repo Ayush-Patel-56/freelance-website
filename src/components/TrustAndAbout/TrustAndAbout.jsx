@@ -1,7 +1,8 @@
-import { useRef } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from '../../lib/gsap'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import { site } from '../../content/site'
 import styles from './TrustAndAbout.module.css'
 
 const clientRows = [
@@ -13,19 +14,31 @@ const testimonials = [
   { quote: 'Thoughtful, fast, and unusually clear. Every decision had a reason behind it, and the result is a brand we are proud to bring into the world.', name: 'Noah Reed', role: 'Creative Director' },
   { quote: 'From the first conversation to launch, Alex understood our ambitions. The finished site has helped us speak with confidence and grow with intention.', name: 'Rae Sullivan', role: 'Co-founder, North', logo: 'NØRTH' },
 ]
+const teamMembers = [
+  { name: site.name, role: 'Creative Director', bio: 'Shapes the studio’s creative direction and turns ambitious ideas into clear, memorable brand systems.', photo: site.avatar, tone: 'coral' },
+  { name: 'Team member 02', role: 'Brand Strategy', bio: 'Add this person’s short introduction, experience, and the part they play in each client partnership.', tone: 'sand' },
+  { name: 'Team member 03', role: 'Web Development', bio: 'Add this person’s short introduction, technical strengths, and the platforms they specialise in.', tone: 'blue' },
+  { name: 'Team member 04', role: 'Client Partnerships', bio: 'Add this person’s short introduction, client focus, and the way they support each project.', tone: 'violet' },
+]
 
 export function TrustAndAbout() {
   const root = useRef(null)
   const disc = useRef(null)
   const cards = useRef([])
   const portrait = useRef(null)
+  const teamCards = useRef([])
+  const teamPhotos = useRef([])
+  const teamImages = useRef([])
+  const teamInfo = useRef([])
+  const teamRail = useRef(null)
+  const teamData = useRef(null)
+  const [selectedMember, setSelectedMember] = useState(null)
   const prefersReducedMotion = usePrefersReducedMotion()
 
   useGSAP(() => {
     if (prefersReducedMotion) return undefined
     gsap.fromTo(`.${styles.logo}`, { opacity: 0 }, { opacity: 1, stagger: { each: 0.045, from: 'center' }, duration: 0.52, ease: 'power2.out', scrollTrigger: { trigger: `.${styles.clients}`, start: 'top 78%', once: true } })
     gsap.from(`.${styles.aboutPanel}`, { y: 56, opacity: 0, duration: 0.85, ease: 'power3.out', scrollTrigger: { trigger: `.${styles.about}`, start: 'top 75%', once: true } })
-    gsap.to(portrait.current, { yPercent: -7, ease: 'none', scrollTrigger: { trigger: `.${styles.about}`, start: 'top bottom', end: 'bottom top', scrub: 0.8 } })
     gsap.set(disc.current, { xPercent: -50 })
     const feedbackTimeline = gsap.timeline({
       scrollTrigger: { trigger: `.${styles.testimonials}`, start: 'top bottom', end: 'bottom top', scrub: 0.8 },
@@ -40,8 +53,82 @@ export function TrustAndAbout() {
       const position = cardPositions[index]
       feedbackTimeline.fromTo(card, { x: position.x, y: position.y + 75, rotation: position.rotation, opacity: 0, scale: 0.9 }, { x: position.x, y: position.y, rotation: position.rotation, opacity: 1, scale: 1, duration: 0.52, ease: 'power2.out' }, 0.16 + index * 0.12)
     })
-    return () => feedbackTimeline.kill()
+    return () => { feedbackTimeline.kill() }
   }, { scope: root, dependencies: [prefersReducedMotion] })
+
+  useLayoutEffect(() => {
+    const cardNodes = teamCards.current.filter(Boolean)
+    if (!portrait.current || !cardNodes.length) return undefined
+
+    const media = gsap.matchMedia()
+    const ctx = gsap.context(() => {
+      if (prefersReducedMotion) {
+        gsap.fromTo(cardNodes, { autoAlpha: 0, y: 18 }, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.42,
+          ease: 'power2.out',
+          stagger: 0.08,
+          scrollTrigger: { trigger: portrait.current, start: 'top 85%', toggleActions: 'play none none none' },
+        })
+        return
+      }
+
+      media.add({ desktop: '(min-width: 768px)', mobile: '(max-width: 767px)' }, (context) => {
+        const { mobile } = context.conditions
+
+        gsap.to(teamRail.current, {
+          x: () => -Math.max(0, teamRail.current.scrollWidth - portrait.current.clientWidth + (mobile ? 28 : 72)),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: portrait.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        })
+
+        cardNodes.forEach((card, index) => {
+          const visual = teamImages.current[index] || teamPhotos.current[index]
+          const info = teamInfo.current[index]
+          const offset = mobile ? (index % 2 === 0 ? -8 : -18) : (index % 2 === 0 ? -20 : -42)
+
+          gsap.to(visual, {
+            y: offset,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: portrait.current,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          })
+
+          const reveal = gsap.timeline({
+            delay: index * 0.15,
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            },
+          })
+          reveal
+            .fromTo(visual, { clipPath: 'inset(100% 0% 0% 0%)', scale: 1.15 }, { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, duration: 1.2, ease: 'power3.out' })
+            .fromTo(info, { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: 'power2.out' }, 0.3)
+        })
+
+      })
+    }, portrait)
+
+    return () => { media.revert(); ctx.revert() }
+  }, [prefersReducedMotion])
+
+  useGSAP(() => {
+    if (prefersReducedMotion || selectedMember === null || !teamData.current) return undefined
+    const tween = gsap.fromTo(teamData.current, { autoAlpha: 0, y: 28, scale: 0.96 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.42, ease: 'power3.out' })
+    return () => tween.kill()
+  }, { scope: root, dependencies: [selectedMember, prefersReducedMotion] })
 
   return <div ref={root}>
     <section className={styles.clients} aria-labelledby="clients-title">
@@ -56,7 +143,33 @@ export function TrustAndAbout() {
 
     <section id="about" className={styles.about} aria-labelledby="about-title">
       <div className={styles.aboutPanel}>
-        <div className={styles.portrait} ref={portrait} aria-label="Abstract portrait illustration"><span className={styles.hair} /><span className={styles.face} /><span className={styles.glasses} /><span className={styles.shirt} /></div>
+        <div className={`${styles.portrait} ${selectedMember !== null ? styles.portraitExpanded : ''}`} ref={portrait} aria-label="Four-person team gallery">
+          <div className={styles.teamGrid}>
+            <div className={styles.teamHeader}>
+              <p>Our team <span>04</span></p>
+              <h3>People who bring<br />ideas to life.</h3>
+              <small>Scroll to meet the team <b>↓</b></small>
+            </div>
+            <div className={styles.teamRail} ref={teamRail}>
+              {teamMembers.map((member, index) => <div className={`${styles.teamItem} ${selectedMember === index ? styles.teamItemSelected : ''}`} key={member.name}>
+                <button type="button" className={`${styles.teamCard} ${styles[member.tone]} ${selectedMember === index ? styles.teamSelected : ''}`} ref={(node) => { teamCards.current[index] = node }} onClick={() => setSelectedMember((current) => current === index ? null : index)} aria-label={`Open details for ${member.name}`} aria-pressed={selectedMember === index}>
+                  <div className={styles.teamPhoto} ref={(node) => { teamPhotos.current[index] = node }}>
+                    {member.photo ? <img ref={(node) => { teamImages.current[index] = node }} src={member.photo} alt={member.name} /> : <b>Add photo</b>}
+                    <i>{String(index + 1).padStart(2, '0')}</i>
+                  </div>
+                  <div className={styles.teamInfo} ref={(node) => { teamInfo.current[index] = node }}><strong>{member.name}</strong><small>{member.role}</small></div>
+                </button>
+                {selectedMember === index && <aside className={styles.teamInlineData} ref={teamData} aria-live="polite">
+                  <button type="button" className={styles.closeTeamData} onClick={() => setSelectedMember(null)} aria-label="Close team member details">×</button>
+                  <p>Team member {String(index + 1).padStart(2, '0')}</p>
+                  <h3>{member.name}</h3>
+                  <strong>{member.role}</strong>
+                  <span>{member.bio}</span>
+                </aside>}
+              </div>)}
+            </div>
+          </div>
+        </div>
         <div className={styles.aboutContent}>
           <h2 id="about-title">I have a <i>passion</i><br />for <i>design</i> and<br /><i>strategy.</i></h2>
           <div className={styles.aboutCopy}><p>My curiosity for design has always gone hand in hand with a love of strategy and technology. I build visual systems that feel clear, useful, and full of character.</p><p>Today, I help ambitious teams create brands and websites that communicate with confidence, build trust, and support meaningful growth.</p></div>
