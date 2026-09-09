@@ -2,18 +2,42 @@ import { useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap, ScrollTrigger } from '../../lib/gsap'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import academicDashboard from '../../assets/academic-dashboard.png'
+import academicPlanning from '../../assets/academic-planning.png'
+import drParthPortfolio from '../../assets/dr-parth-portfolio.png'
+import jaiRamdevBusiness from '../../assets/jai-ramdev-business.png'
+import fitoraDashboard from '../../assets/fitora-dashboard.png'
 import styles from './PortfolioPage.module.css'
 
 const projects = [
-  { number: '01', title: 'Afterlight', year: '2026', tags: ['Digital direction', 'Web design', 'Development'], color: 'ember', words: ['A/R', 'AFTER', 'LIGHT'], note: 'A modular identity for a cultural studio working after dark.' },
-  { number: '02', title: 'Morrow Studio', year: '2025', tags: ['Identity', 'Art direction'], color: 'cobalt', words: ['MORROW', 'OBJECTS', '01'], note: 'A tactile digital home for ideas made to last.' },
-  { number: '03', title: 'Kindred Index', year: '2025', tags: ['Strategy', 'Web design'], color: 'lime', words: ['KINDRED', 'INDEX', 'K/I'], note: 'A visual system for a new index of independent makers.' },
-  { number: '04', title: 'Common Thread', year: '2024', tags: ['Campaign', 'Digital'], color: 'violet', words: ['COMMON', 'THREAD', 'C/T'], note: 'A campaign space built around the human side of technology.' },
+  {
+    number: '01', title: 'Large Scale Projects', year: '2026', tags: ['LMS', 'Academic management system', 'Development'], color: 'academic',
+    words: ['ACADEMIC', 'PLANNING', 'LMS'], note: 'A large-scale academic management system for planning lessons, tracking progress, and supporting faculty workflows.',
+    images: [academicDashboard, academicPlanning], demoUrl: 'https://academic-planning-system-two.vercel.app/teacher',
+  },
+  {
+    number: '02', title: 'Professional Portfolio', year: '2026', tags: ['Professional portfolio', 'Web design', 'Development'], color: 'teal',
+    words: ['DR PARTH', 'CLINIC', 'P/P'], note: 'A professional digital presence for Dr. Parth’s Brain & Spine Clinic, designed to make care information and appointments easy to access.',
+    images: [drParthPortfolio], demoUrl: 'https://www.parthsorathiya.com/',
+  },
+  {
+    number: '03', title: 'Business Website', year: '2026', tags: ['Business website', 'Web design', 'Development'], color: 'forest',
+    words: ['JAI RAMDEV', 'TIMBER', 'J/R'], note: 'A clear, conversion-focused website for Jai Ramdev Timber & Plywood, connecting customers to products and enquiries.',
+    images: [jaiRamdevBusiness], demoUrl: 'https://jai-ramdev-timber-and-plywood.vercel.app/',
+  },
+]
+
+const smallScaleProjects = [
+  {
+    number: '01', title: 'Fitora', year: '2026', tags: ['Fitness platform', 'Web app'], image: fitoraDashboard,
+    demoUrl: 'https://fitora-alpha.vercel.app/',
+  },
 ]
 
 function Arrow() { return <span aria-hidden="true" className={styles.arrow}>↗</span> }
 
-function ProjectArt({ project, compact = false }) {
+function ProjectArt({ project, compact = false, image }) {
+  if (image) return <div className={`${styles.art} ${styles.projectImage} ${compact ? styles.artCompact : ''}`} aria-hidden="true"><img src={image} alt="" /></div>
   return <div className={`${styles.art} ${styles[project.color]} ${compact ? styles.artCompact : ''}`} aria-hidden="true">
     <div className={styles.artGrid} /><div className={styles.orb} />
     <span className={styles.artType}>{project.words[0]}</span><span className={styles.artIndex}>{project.words[2]}</span>
@@ -22,6 +46,28 @@ function ProjectArt({ project, compact = false }) {
 }
 
 function Tags({ tags }) { return <div className={styles.tags}>{tags.map((tag) => <span key={tag}>{tag}</span>)}</div> }
+
+function ProjectNote({ project }) {
+  return <aside className={styles.projectNote}>
+    <span>Project note</span>
+    <p>{project.note}</p>
+    {project.demoUrl ? <a href={project.demoUrl} target="_blank" rel="noreferrer">Explore demo <Arrow /></a> : <div>Explore case study <Arrow /></div>}
+  </aside>
+}
+
+function SmallProjectCard({ project, isActive, onActivate, onDeactivate }) {
+  return <article className={`${styles.smallProjectCard} ${isActive ? styles.smallProjectActive : ''}`} onMouseEnter={onActivate} onMouseLeave={onDeactivate} onFocus={onActivate}>
+    <div className={styles.smallProjectDetails}>
+      <span>{project.number}</span>
+      <h3>{project.title} <em>({project.year})</em></h3>
+      <Tags tags={project.tags} />
+      <a href={project.demoUrl} target="_blank" rel="noreferrer">View demo <Arrow /></a>
+    </div>
+    <a className={styles.smallProjectImage} href={project.demoUrl} target="_blank" rel="noreferrer" aria-label={`View ${project.title} demo`}>
+      <img src={project.image} alt={`${project.title} dashboard preview`} />
+    </a>
+  </article>
+}
 
 function WorkCard({ project, isActive, onActivate, cardRef }) {
   const onKeyDown = (event) => {
@@ -32,20 +78,18 @@ function WorkCard({ project, isActive, onActivate, cardRef }) {
       <span className={styles.projectNumber}>{project.number}</span>
       <h3>{project.title} <em>({project.year})</em></h3>
       <Tags tags={project.tags} />
-      <div className={styles.previewPair}><ProjectArt project={project} compact /><ProjectArt project={{ ...project, words: [project.words[1], project.words[0], project.number] }} compact /></div>
-      <a href="#contact" className={styles.viewLink} onClick={(event) => event.stopPropagation()}>View project <Arrow /></a>
+      <div className={styles.previewPair}>{project.images ? project.images.map((image) => <ProjectArt key={image} project={project} image={image} compact />) : <><ProjectArt project={project} compact /><ProjectArt project={{ ...project, words: [project.words[1], project.words[0], project.number] }} compact /></>}</div>
+      <a href={project.demoUrl || '#contact'} target={project.demoUrl ? '_blank' : undefined} rel={project.demoUrl ? 'noreferrer' : undefined} className={styles.viewLink} onClick={(event) => event.stopPropagation()}>View demo <Arrow /></a>
     </div>
-    <div className={styles.projectBody} aria-hidden={!isActive}>
-      <div className={styles.bodyArt}><ProjectArt project={project} /></div>
-      <div className={`${styles.bodyArt} ${styles.centerArt}`}><ProjectArt project={{ ...project, words: [project.words[1], project.words[0], project.number] }} /></div>
-      <div className={`${styles.bodyArt} ${styles.tallArt}`}><ProjectArt project={{ ...project, words: [project.words[2], project.words[1], '∞'] }} /></div>
-      <aside className={styles.projectNote}><span>Project note</span><p>{project.note}</p><div>Explore case study <Arrow /></div></aside>
+    <div className={`${styles.projectBody} ${project.images ? styles.projectBodyWithImages : ''} ${project.images?.length === 1 ? styles.projectBodySingleImage : ''}`} aria-hidden={!isActive}>
+      {project.images ? project.images.map((image, index) => <div className={styles.bodyArt} key={image}><ProjectArt project={project} image={image} />{index === 0 && <ProjectNote project={project} />}</div>) : <><div className={styles.bodyArt}><ProjectArt project={project} /></div><div className={`${styles.bodyArt} ${styles.centerArt}`}><ProjectArt project={{ ...project, words: [project.words[1], project.words[0], project.number] }} /></div><div className={`${styles.bodyArt} ${styles.tallArt}`}><ProjectArt project={{ ...project, words: [project.words[2], project.words[1], '∞'] }} /></div><ProjectNote project={project} /></>}
     </div>
   </article>
 }
 
 export function PortfolioPage({ showNav = true, showFooter = true, showHero = true }) {
   const [activeProject, setActiveProject] = useState(0)
+  const [activeSmallProject, setActiveSmallProject] = useState(null)
   const root = useRef(null)
   const cardRefs = useRef([])
   const reducedMotion = usePrefersReducedMotion()
@@ -54,6 +98,11 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
     const intro = gsap.timeline({ defaults: { ease: 'power3.out' } })
     intro.from(`.${styles.nav}`, { y: -28, opacity: 0, duration: 0.75 }).from(`.${styles.eyebrow}`, { y: 18, opacity: 0, duration: 0.5 }, '-=0.35').from(`.${styles.heroTitle} span`, { yPercent: 115, stagger: 0.08, duration: 0.9 }, '-=0.25').from(`.${styles.heroBottom}`, { y: 22, opacity: 0, duration: 0.55 }, '-=0.45')
     gsap.utils.toArray(`.${styles.reveal}`).forEach((element) => gsap.from(element, { y: 28, opacity: 0, duration: 0.7, ease: 'power2.out', scrollTrigger: { trigger: element, start: 'top 86%', once: true } }))
+    const smallScale = root.current?.querySelector(`.${styles.smallScale}`)
+    const smallScaleTween = smallScale && gsap.from(smallScale.querySelectorAll(`.${styles.smallScaleHeading}, .${styles.smallProjectCard}`), {
+      y: 44, opacity: 0, duration: 0.72, stagger: 0.12, ease: 'power3.out',
+      scrollTrigger: { trigger: smallScale, start: 'top 82%', once: true },
+    })
 
     // The pinned hero above this section changes the document height after mount.
     // Recalculate once layout has settled so the work cards are not left hidden.
@@ -67,6 +116,7 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
       cancelAnimationFrame(refreshFrame)
       window.removeEventListener('load', refreshTriggers)
       intro.kill()
+      smallScaleTween?.kill()
     }
   }, { scope: root, dependencies: [reducedMotion] })
 
@@ -87,8 +137,12 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
       <div className={styles.heroBottom}><div className={styles.socialPills}><a href="https://linkedin.com">Li</a><a href="https://instagram.com">In</a></div><a className={styles.roundButton} href="#work">Explore work <span>↓</span></a></div>
     </header>}
     <section id="work" className={`${styles.work} ${styles.reveal}`} aria-labelledby="work-heading">
-      <div className={styles.workHeading}><p>01 — 04</p><h2 id="work-heading">My work<span>.</span></h2><p>A considered collection<br />of recent collaborations.</p></div>
+      <div className={styles.workHeading}><p>01 — 03</p><h2 id="work-heading">Large scale<span>.</span></h2><p>A considered collection<br />of recent collaborations.</p></div>
       <div className={styles.projectList}>{projects.map((project, index) => <WorkCard key={project.title} project={project} isActive={index === activeProject} onActivate={() => setActiveProject(index)} cardRef={(element) => { cardRefs.current[index] = element }} />)}</div>
+      <section className={styles.smallScale} aria-labelledby="small-scale-heading">
+        <div className={styles.smallScaleHeading}><p>Small scale</p><h2 id="small-scale-heading">Small scale projects<span>.</span></h2></div>
+        <div className={styles.smallProjectGrid}>{smallScaleProjects.map((project, index) => <SmallProjectCard key={project.title} project={project} isActive={index === activeSmallProject} onActivate={() => setActiveSmallProject(index)} onDeactivate={() => setActiveSmallProject(null)} />)}</div>
+      </section>
       <a className={styles.allWork} href="#contact">More selected work <Arrow /></a>
     </section>
     {showFooter && <PortfolioFooter />}
