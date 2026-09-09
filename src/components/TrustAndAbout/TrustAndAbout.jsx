@@ -6,8 +6,8 @@ import { site } from '../../content/site'
 import styles from './TrustAndAbout.module.css'
 
 const clientRows = [
-  ['NØRTH /', 'the SAGES', 'Hruđa', 'TvojPlot', 'buky__'],
-  ['MORROW', 'FIELD /', 'kin.', 'RITUAL', 'NØRTH /'],
+  ['Academic Planning', 'Dr. Parth’s Clinic', 'Jai Ramdev Timber', 'Fitora', 'Arohan Health', 'Nivra Homes'],
+  ['Saanjh Foods', 'Kshetra Labs', 'Academic Planning', 'Dr. Parth’s Clinic', 'Jai Ramdev Timber', 'Fitora'],
 ]
 const testimonials = [
   { quote: 'Working with Alex gave our company a new sense of focus. He captured the heart of our work and made it easy for the right people to recognise us.', name: 'Maya Phillips', role: 'Founder, Morrow', logo: 'Morrow' },
@@ -15,7 +15,7 @@ const testimonials = [
   { quote: 'From the first conversation to launch, Alex understood our ambitions. The finished site has helped us speak with confidence and grow with intention.', name: 'Rae Sullivan', role: 'Co-founder, North', logo: 'NØRTH' },
 ]
 const teamMembers = [
-  { name: site.name, role: 'Creative Director', bio: 'Shapes the studio’s creative direction and turns ambitious ideas into clear, memorable brand systems.', photo: site.avatar, tone: 'coral' },
+  { name: site.name, role: 'Creative Director', bio: 'Shapes the studio’s creative direction and turns ambitious ideas into clear, useful digital systems.', photo: site.avatar, tone: 'coral' },
   { name: 'Team member 02', role: 'Brand Strategy', bio: 'Add this person’s short introduction, experience, and the part they play in each client partnership.', tone: 'sand' },
   { name: 'Team member 03', role: 'Web Development', bio: 'Add this person’s short introduction, technical strengths, and the platforms they specialise in.', tone: 'blue' },
   { name: 'Team member 04', role: 'Client Partnerships', bio: 'Add this person’s short introduction, client focus, and the way they support each project.', tone: 'violet' },
@@ -132,8 +132,8 @@ export function TrustAndAbout() {
 
   return <div ref={root}>
     <section className={styles.clients} aria-labelledby="clients-title">
-      <p id="clients-title">Clients who trust me</p>
-      <h2>I partner with ambitious businesses, established companies, startups and agencies to build brands that make a lasting impression.</h2>
+      <p id="clients-title">Selected work</p>
+      <h2>From academic management systems and healthcare portfolios to business websites and fitness platforms, we build useful digital products that are ready to grow.</h2>
       <div className={styles.logoRows}>
         {clientRows.map((row, rowIndex) => <div className={`${styles.logoRow} ${rowIndex === 0 ? styles.slideLeft : styles.slideRight}`} key={rowIndex}>
           {[...row, ...row].map((client, index) => <div className={styles.logo} key={`${client}-${index}`}>{client}</div>)}
@@ -171,8 +171,8 @@ export function TrustAndAbout() {
           </div>
         </div>
         <div className={styles.aboutContent}>
-          <h2 id="about-title">I have a <i>passion</i><br />for <i>design</i> and<br /><i>strategy.</i></h2>
-          <div className={styles.aboutCopy}><p>My curiosity for design has always gone hand in hand with a love of strategy and technology. I build visual systems that feel clear, useful, and full of character.</p><p>Today, I help ambitious teams create brands and websites that communicate with confidence, build trust, and support meaningful growth.</p></div>
+          <h2 id="about-title">We have a <i>passion</i><br />for <i>design</i> and<br /><i>strategy.</i></h2>
+          <div className={styles.aboutCopy}><p>Our curiosity for design has always gone hand in hand with a love of strategy and technology. We build visual systems that feel clear, useful, and full of character.</p><p>Today, we help ambitious teams create brands and websites that communicate with confidence, build trust, and support meaningful growth.</p></div>
           <a href="#contact">Let’s get in touch <span>↗</span></a>
         </div>
       </div>

@@ -1,17 +1,44 @@
 import { useState } from 'react'
+import productEngineering from '../../assets/service-product-engineering.png'
+import aiData from '../../assets/service-ai-data.png'
+import platformSecurity from '../../assets/service-platform-security.png'
 import styles from './ProcessServices.module.css'
 
 const processSteps = [
-  { number: '01', title: 'Consultation', text: 'We start face to face: aligning the project goals, scope, and a clear path forward.', theme: 'paper' },
-  { number: '02', title: 'Strategy', text: 'I turn the useful conversations into a focused idea, a sharp position, and a practical roadmap.', theme: 'sunset' },
-  { number: '03', title: 'Direction', text: 'We explore visual routes and select the one with the most energy and long-term potential.', theme: 'electric' },
-  { number: '04', title: 'Design', text: 'The system comes to life across every selected touchpoint, ready to be used with confidence.', theme: 'dark' },
+  { number: '01', title: 'Discover', text: 'We align on the problem, priorities, users and the outcomes that will make the work matter.', theme: 'paper' },
+  { number: '02', title: 'Define', text: 'We turn insight into a focused product plan, a technical approach and a clear delivery roadmap.', theme: 'sunset' },
+  { number: '03', title: 'Build', text: 'Design, engineering and intelligence come together in a product that is crafted for real-world use.', theme: 'electric' },
+  { number: '04', title: 'Evolve', text: 'We launch with confidence, then improve the experience, performance and systems as you grow.', theme: 'dark' },
 ]
 
 const services = [
-  { number: '01', title: 'Visual Identity', text: 'Strategic visual identities for businesses ready to be recognised, remembered, and chosen.', palette: 'yellow' },
-  { number: '02', title: 'Web Design', text: 'Clear, expressive websites that make your brand feel as considered online as it does everywhere else.', palette: 'cobalt' },
-  { number: '03', title: 'Webflow Development', text: 'Fast, scalable Webflow builds with clean structure, thoughtful motion, and an easy-to-manage CMS.', palette: 'red' },
+  {
+    number: '01', title: 'Product Engineering',
+    text: 'Digital products designed around real user needs, then built across responsive web, mobile and backend systems.',
+    capabilities: ['UX & UI design', 'Responsive web apps', 'Mobile applications', 'Backend APIs'],
+    outcome: 'A coherent product experience, ready for real users and future growth.',
+    bestFor: 'New digital products, internal tools and businesses improving a key customer journey.',
+    delivery: ['User flows & wireframes', 'Interface & design system', 'Frontend implementation', 'Backend, QA & release'],
+    image: productEngineering, alt: 'Laptop and mobile product interface visual',
+  },
+  {
+    number: '02', title: 'AI & Data Systems',
+    text: 'Useful AI, machine learning and data solutions that turn complex information into practical momentum.',
+    capabilities: ['Gen AI workflows', 'Machine learning', 'Data science', 'Analytics & automation'],
+    outcome: 'Intelligence that supports faster decisions and more useful customer experiences.',
+    bestFor: 'Teams with valuable data, repetitive workflows or a clear opportunity for AI-assisted products.',
+    delivery: ['Data & use-case audit', 'AI workflow design', 'Model & API integration', 'Measurement & iteration'],
+    image: aiData, alt: 'Abstract AI and data visualisation',
+  },
+  {
+    number: '03', title: 'Secure Platforms',
+    text: 'Scalable solution architecture, security and DevOps foundations that keep ambitious products dependable.',
+    capabilities: ['Solution architecture', 'Cloud & DevOps', 'Application security', 'Performance engineering'],
+    outcome: 'A resilient technical foundation that can launch confidently and scale safely.',
+    bestFor: 'Growing products that need a stronger technical foundation before the next stage of scale.',
+    delivery: ['Architecture review', 'Cloud & CI/CD setup', 'Security hardening', 'Monitoring & optimisation'],
+    image: platformSecurity, alt: 'Abstract secure platform infrastructure visual',
+  },
 ]
 
 function Arrow() { return <span className={styles.arrow} aria-hidden="true">↗</span> }
@@ -20,9 +47,9 @@ function ProcessArtwork({ theme }) {
   return <div className={`${styles.processArt} ${styles[theme]}`} aria-hidden="true"><span /><i /><b /></div>
 }
 
-function ServiceArtwork({ palette, title }) {
-  return <div className={`${styles.serviceArtwork} ${styles[palette]}`} aria-hidden="true">
-    <div className={styles.laptop}><div className={styles.screen}><span>{title}</span><i /><b /></div><div className={styles.keyboard} /></div>
+function ServiceArtwork({ image, alt }) {
+  return <div className={styles.serviceArtwork}>
+    <img src={image} alt={alt} />
   </div>
 }
 
@@ -31,7 +58,7 @@ export function ProcessServices() {
 
   return <>
     <section className={styles.process} aria-labelledby="process-title">
-      <div className={styles.processHeading}><p>How we work</p><h2 id="process-title">My Process</h2></div>
+      <div className={styles.processHeading}><p>How we work</p><h2 id="process-title">Our Process</h2></div>
       <div className={styles.stack}>
         {processSteps.map((step) => <article className={styles.processCard} key={step.number}>
           <div className={styles.processCardTop}><h3>{step.title}</h3><span>{step.number}</span></div>
@@ -44,15 +71,21 @@ export function ProcessServices() {
     </section>
 
     <section className={styles.services} id="services" aria-labelledby="services-title">
-      <div className={styles.servicesIntro}><p>What I do</p><h2 id="services-title">Services</h2><p>From first ideas to an expressive, reliable digital home.</p></div>
+      <div className={styles.servicesIntro}><p>What we do</p><h2 id="services-title">Services</h2><p>From product ideas to intelligent, secure systems built to perform and scale.</p></div>
       <div className={styles.serviceRail}>
         {services.map((service, index) => <article className={`${styles.serviceCard} ${index === activeService ? styles.serviceActive : ''}`} key={service.number} onMouseEnter={() => setActiveService(index)}>
           <button type="button" onClick={() => setActiveService(index)} aria-expanded={index === activeService} aria-label={`${service.title} service`}>
             <span>{service.number}</span><strong>{service.title}</strong>
           </button>
           <div className={styles.serviceDetail}>
-            <ServiceArtwork palette={service.palette} title={service.title} />
-            <div className={styles.serviceCopy}><p>{service.text}</p><a href="#contact">See related work <Arrow /></a></div>
+            <ServiceArtwork image={service.image} alt={service.alt} />
+            <div className={styles.serviceCopy}>
+              <p>{service.text}</p>
+              <div className={styles.serviceCapabilities}><span>Capabilities</span><ul>{service.capabilities.map((capability) => <li key={capability}>{capability}</li>)}</ul></div>
+              <div className={styles.serviceOutcome}><span>What you get</span><strong>{service.outcome}</strong></div>
+              <div className={styles.serviceBestFor}><span>Best for</span><p>{service.bestFor}</p></div>
+              <div className={styles.serviceDelivery}><span>Typical delivery</span><ul>{service.delivery.map((item) => <li key={item}>{item}</li>)}</ul></div>
+            </div>
           </div>
         </article>)}
       </div>

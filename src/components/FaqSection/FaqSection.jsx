@@ -5,15 +5,15 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import styles from './FaqSection.module.css'
 
 const questions = [
-  ['Who do you typically work with?', 'I partner with ambitious founders, growing teams, established businesses, and agencies that value thoughtful design and a strategic approach.', 'clients'],
-  ['How much does a project cost?', 'Every project is shaped around its goals and scope. After our first conversation, I share a transparent proposal with clear milestones and investment.', 'pricing'],
-  ['How long does a typical project take?', 'Most identity and website projects take between four and eight weeks, depending on the scope, feedback rhythm, and selected deliverables.', 'timeline'],
+  ['Who do you typically work with?', 'We partner with ambitious founders, growing teams, established businesses, and agencies that value thoughtful design and a strategic approach.', 'clients'],
+  ['How much does a project cost?', 'Every project is shaped around its goals and scope. After our first conversation, we share a transparent proposal with clear milestones and investment.', 'pricing'],
+  ['How long does a typical project take?', 'Most product and platform projects take between four and eight weeks, depending on the scope, feedback rhythm, and selected deliverables.', 'timeline'],
   ['What can I expect from our collaboration?', 'You can expect clear communication, honest feedback, and a structured process from start to finish. The best outcomes come from close collaboration.', 'collaboration'],
-  ['What do you need from me to get started?', 'A clear view of your business, goals, and audience is the best start. If you have materials ready, great—if not, I will guide the discovery process.', 'discovery'],
-  ['Can you help with branding, web design, or both?', 'Yes. I can support visual identity, web design, Webflow development, or a combined project that brings every part together.', 'services'],
-  ['Why do you choose Webflow?', 'Webflow gives creative freedom alongside fast, secure, scalable websites. It offers a clean foundation and an intuitive editing experience for your team.', 'development'],
+  ['What do you need to get started?', 'A clear view of your business, goals, and audience is the best start. If you have materials ready, great—if not, we will guide the discovery process.', 'discovery'],
+  ['Can you help with product design, development, or both?', 'Yes. We can support product strategy, UX and UI design, web and mobile development, AI workflows, or a combined delivery that brings every part together.', 'services'],
+  ['How do you choose the right technology?', 'We select the tools, architecture, and platforms around your users, goals, operational needs, and the scale you expect after launch.', 'development'],
   ['Will I be able to edit the website myself?', 'Yes. Every build includes an intuitive CMS so you can update content confidently without relying on a developer for everyday changes.', 'editing'],
-  ['Do you provide support after launch?', 'Yes. Launch is only the beginning. I am available for support, new sections, improvements, and ongoing maintenance as your business evolves.', 'support'],
+  ['Do you provide support after launch?', 'Yes. Launch is only the beginning. We are available for support, new sections, improvements, and ongoing maintenance as your business evolves.', 'support'],
   ['Is every website optimized for SEO and performance?', 'Yes. Accessibility, responsive design, technical SEO, and performance are integrated from the beginning, not added as an afterthought.', 'performance'],
 ]
 
@@ -55,7 +55,7 @@ export function FaqSection() {
     gsap.from(`.${styles.item}`, { y: 36, opacity: 0, stagger: 0.065, duration: 0.58, ease: 'power3.out', scrollTrigger: { trigger: root.current, start: 'top 70%', once: true } })
   }, { scope: root, dependencies: [reducedMotion] })
   return <section ref={root} className={styles.faq} aria-labelledby="faq-title">
-    <div className={styles.heading}><p>Everything you need to know</p><h2 id="faq-title">From pricing and timelines to Webflow and long-term support. Here are the answers to the questions I get asked most often.</h2></div>
+    <div className={styles.heading}><p>Everything you need to know</p><h2 id="faq-title">From pricing and timelines to Webflow and long-term support. Here are the answers to the questions we get asked most often.</h2></div>
     <div className={styles.columns}>{[questions.slice(0, 5), questions.slice(5)].map((column, columnIndex) => <div className={styles.column} key={columnIndex}>{column.map((item, itemIndex) => { const index = itemIndex + columnIndex * 5; return <Question key={item[0]} item={item} index={index} active={active === index} onToggle={() => setActive(active === index ? -1 : index)} /> })}</div>)}</div>
   </section>
 }

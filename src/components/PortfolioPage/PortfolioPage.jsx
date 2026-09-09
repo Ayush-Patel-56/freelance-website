@@ -29,15 +29,17 @@ const projects = [
 
 const smallScaleProjects = [
   {
-    number: '01', title: 'Fitora', year: '2026', tags: ['Fitness platform', 'Web app'], image: fitoraDashboard,
+    number: '04', title: 'Fitora', year: '2026', tags: ['Fitness platform', 'Web app'], image: fitoraDashboard,
     demoUrl: 'https://fitora-alpha.vercel.app/',
+    note: 'A focused training platform that gives every workout a clearer, more motivating home.',
+    images: [fitoraDashboard, fitoraDashboard],
   },
 ]
 
 function Arrow() { return <span aria-hidden="true" className={styles.arrow}>↗</span> }
 
-function ProjectArt({ project, compact = false, image }) {
-  if (image) return <div className={`${styles.art} ${styles.projectImage} ${compact ? styles.artCompact : ''}`} aria-hidden="true"><img src={image} alt="" /></div>
+function ProjectArt({ project, compact = false, image, imagePosition }) {
+  if (image) return <div className={`${styles.art} ${styles.projectImage} ${imagePosition ? styles[imagePosition] : ''} ${compact ? styles.artCompact : ''}`} aria-hidden="true"><img src={image} alt="" /></div>
   return <div className={`${styles.art} ${styles[project.color]} ${compact ? styles.artCompact : ''}`} aria-hidden="true">
     <div className={styles.artGrid} /><div className={styles.orb} />
     <span className={styles.artType}>{project.words[0]}</span><span className={styles.artIndex}>{project.words[2]}</span>
@@ -55,34 +57,20 @@ function ProjectNote({ project }) {
   </aside>
 }
 
-function SmallProjectCard({ project, isActive, onActivate, onDeactivate }) {
-  return <article className={`${styles.smallProjectCard} ${isActive ? styles.smallProjectActive : ''}`} onMouseEnter={onActivate} onMouseLeave={onDeactivate} onFocus={onActivate}>
-    <div className={styles.smallProjectDetails}>
-      <span>{project.number}</span>
-      <h3>{project.title} <em>({project.year})</em></h3>
-      <Tags tags={project.tags} />
-      <a href={project.demoUrl} target="_blank" rel="noreferrer">View demo <Arrow /></a>
-    </div>
-    <a className={styles.smallProjectImage} href={project.demoUrl} target="_blank" rel="noreferrer" aria-label={`View ${project.title} demo`}>
-      <img src={project.image} alt={`${project.title} dashboard preview`} />
-    </a>
-  </article>
-}
-
-function WorkCard({ project, isActive, onActivate, cardRef }) {
+function WorkCard({ project, isActive, onActivate, onDeactivate, cardRef }) {
   const onKeyDown = (event) => {
     if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onActivate() }
   }
-  return <article ref={cardRef} className={`${styles.workCard} ${isActive ? styles.active : ''}`} onMouseEnter={onActivate} onFocus={onActivate} onKeyDown={onKeyDown} tabIndex="0" aria-label={`${project.title}, ${project.year}`}>
+  return <article ref={cardRef} className={`${styles.workCard} ${isActive ? styles.active : ''}`} onMouseEnter={onActivate} onMouseLeave={onDeactivate} onFocus={onActivate} onKeyDown={onKeyDown} tabIndex="0" aria-label={`${project.title}, ${project.year}`}>
     <div className={styles.cardTop}>
       <span className={styles.projectNumber}>{project.number}</span>
       <h3>{project.title} <em>({project.year})</em></h3>
       <Tags tags={project.tags} />
-      <div className={styles.previewPair}>{project.images ? project.images.map((image) => <ProjectArt key={image} project={project} image={image} compact />) : <><ProjectArt project={project} compact /><ProjectArt project={{ ...project, words: [project.words[1], project.words[0], project.number] }} compact /></>}</div>
+      <div className={styles.previewPair}>{project.images ? project.images.map((image, index) => <ProjectArt key={`${image}-${index}`} project={project} image={image} imagePosition={project.title === 'Fitora' ? (index === 0 ? 'fitoraOverview' : 'fitoraDetail') : undefined} compact />) : <><ProjectArt project={project} compact /><ProjectArt project={{ ...project, words: [project.words[1], project.words[0], project.number] }} compact /></>}</div>
       <a href={project.demoUrl || '#contact'} target={project.demoUrl ? '_blank' : undefined} rel={project.demoUrl ? 'noreferrer' : undefined} className={styles.viewLink} onClick={(event) => event.stopPropagation()}>View demo <Arrow /></a>
     </div>
     <div className={`${styles.projectBody} ${project.images ? styles.projectBodyWithImages : ''} ${project.images?.length === 1 ? styles.projectBodySingleImage : ''}`} aria-hidden={!isActive}>
-      {project.images ? project.images.map((image, index) => <div className={styles.bodyArt} key={image}><ProjectArt project={project} image={image} />{index === 0 && <ProjectNote project={project} />}</div>) : <><div className={styles.bodyArt}><ProjectArt project={project} /></div><div className={`${styles.bodyArt} ${styles.centerArt}`}><ProjectArt project={{ ...project, words: [project.words[1], project.words[0], project.number] }} /></div><div className={`${styles.bodyArt} ${styles.tallArt}`}><ProjectArt project={{ ...project, words: [project.words[2], project.words[1], '∞'] }} /></div><ProjectNote project={project} /></>}
+      {project.images ? project.images.map((image, index) => <div className={styles.bodyArt} key={`${image}-${index}`}><ProjectArt project={project} image={image} imagePosition={project.title === 'Fitora' ? (index === 0 ? 'fitoraOverview' : 'fitoraDetail') : undefined} />{index === 0 && <ProjectNote project={project} />}</div>) : <><div className={styles.bodyArt}><ProjectArt project={project} /></div><div className={`${styles.bodyArt} ${styles.centerArt}`}><ProjectArt project={{ ...project, words: [project.words[1], project.words[0], project.number] }} /></div><div className={`${styles.bodyArt} ${styles.tallArt}`}><ProjectArt project={{ ...project, words: [project.words[2], project.words[1], '∞'] }} /></div><ProjectNote project={project} /></>}
     </div>
   </article>
 }
@@ -92,6 +80,7 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
   const [activeSmallProject, setActiveSmallProject] = useState(null)
   const root = useRef(null)
   const cardRefs = useRef([])
+  const smallCardRefs = useRef([])
   const reducedMotion = usePrefersReducedMotion()
   useGSAP(() => {
     if (reducedMotion) return undefined
@@ -99,11 +88,10 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
     intro.from(`.${styles.nav}`, { y: -28, opacity: 0, duration: 0.75 }).from(`.${styles.eyebrow}`, { y: 18, opacity: 0, duration: 0.5 }, '-=0.35').from(`.${styles.heroTitle} span`, { yPercent: 115, stagger: 0.08, duration: 0.9 }, '-=0.25').from(`.${styles.heroBottom}`, { y: 22, opacity: 0, duration: 0.55 }, '-=0.45')
     gsap.utils.toArray(`.${styles.reveal}`).forEach((element) => gsap.from(element, { y: 28, opacity: 0, duration: 0.7, ease: 'power2.out', scrollTrigger: { trigger: element, start: 'top 86%', once: true } }))
     const smallScale = root.current?.querySelector(`.${styles.smallScale}`)
-    const smallScaleTween = smallScale && gsap.from(smallScale.querySelectorAll(`.${styles.smallScaleHeading}, .${styles.smallProjectCard}`), {
-      y: 44, opacity: 0, duration: 0.72, stagger: 0.12, ease: 'power3.out',
+    const smallScaleTween = smallScale && gsap.from(smallScale.querySelectorAll(`.${styles.smallScaleIntro} > *, .${styles.smallProjectCard}`), {
+      y: 52, opacity: 0, duration: 0.82, stagger: 0.12, ease: 'power3.out',
       scrollTrigger: { trigger: smallScale, start: 'top 82%', once: true },
     })
-
     // The pinned hero above this section changes the document height after mount.
     // Recalculate once layout has settled so the work cards are not left hidden.
     let refreshFrame = requestAnimationFrame(() => {
@@ -129,19 +117,28 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
     return () => tween.kill()
   }, { scope: root, dependencies: [activeProject, reducedMotion] })
 
+  useGSAP(() => {
+    if (reducedMotion || activeSmallProject === null) return undefined
+    const activeCard = smallCardRefs.current[activeSmallProject]
+    if (!activeCard) return undefined
+    const targets = activeCard.querySelectorAll(`.${styles.bodyArt}, .${styles.projectNote}, .${styles.viewLink}`)
+    const tween = gsap.fromTo(targets, { y: 28, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.55, stagger: 0.075, ease: 'power3.out', overwrite: 'auto' })
+    return () => tween.kill()
+  }, { scope: root, dependencies: [activeSmallProject, reducedMotion] })
+
   return <div ref={root} className={styles.portfolio}>
-    {showNav && <nav className={styles.nav} aria-label="Primary navigation"><a className={styles.brand} href="#top"><i /> Alex Rivera <b>⌄</b></a><div className={styles.navLinks}><a href="#work">My work</a><a href="#contact">Contact <Arrow /></a></div></nav>}
+    {showNav && <nav className={styles.nav} aria-label="Primary navigation"><a className={styles.brand} href="#top"><i /> Alex Rivera <b>⌄</b></a><div className={styles.navLinks}><a href="#work">Our work</a><a href="#contact">Contact <Arrow /></a></div></nav>}
     {showHero && <header id="top" className={styles.hero}>
       <p className={styles.eyebrow}><span /> Independent digital designer · 2026</p>
-      <h1 className={styles.heroTitle} aria-label="Design for brands that move differently."><span>Design for</span><span>brands</span><span className={styles.offsetLine}>that move</span><span><i>differently.</i></span></h1>
+      <h1 className={styles.heroTitle} aria-label="Digital systems built to scale."><span>Digital</span><span>systems</span><span className={styles.offsetLine}>built to</span><span><i>scale.</i></span></h1>
       <div className={styles.heroBottom}><div className={styles.socialPills}><a href="https://linkedin.com">Li</a><a href="https://instagram.com">In</a></div><a className={styles.roundButton} href="#work">Explore work <span>↓</span></a></div>
     </header>}
     <section id="work" className={`${styles.work} ${styles.reveal}`} aria-labelledby="work-heading">
-      <div className={styles.workHeading}><p>01 — 03</p><h2 id="work-heading">Large scale<span>.</span></h2><p>A considered collection<br />of recent collaborations.</p></div>
+      <div className={styles.workHeading}><p>01 — 03</p><h2 id="work-heading">Projects<span>.</span></h2><p>A considered collection<br />of recent collaborations.</p></div>
       <div className={styles.projectList}>{projects.map((project, index) => <WorkCard key={project.title} project={project} isActive={index === activeProject} onActivate={() => setActiveProject(index)} cardRef={(element) => { cardRefs.current[index] = element }} />)}</div>
       <section className={styles.smallScale} aria-labelledby="small-scale-heading">
-        <div className={styles.smallScaleHeading}><p>Small scale</p><h2 id="small-scale-heading">Small scale projects<span>.</span></h2></div>
-        <div className={styles.smallProjectGrid}>{smallScaleProjects.map((project, index) => <SmallProjectCard key={project.title} project={project} isActive={index === activeSmallProject} onActivate={() => setActiveSmallProject(index)} onDeactivate={() => setActiveSmallProject(null)} />)}</div>
+        <div className={styles.smallProjectsHeading}><p>04</p><h2 id="small-scale-heading">Small Scale Projects<span>.</span></h2><p>A focused collection<br />of smaller collaborations.</p></div>
+        <div className={styles.projectList}>{smallScaleProjects.map((project, index) => <WorkCard key={project.title} project={project} isActive={index === activeSmallProject} onActivate={() => setActiveSmallProject(index)} onDeactivate={() => setActiveSmallProject(null)} cardRef={(element) => { smallCardRefs.current[index] = element }} />)}</div>
       </section>
       <a className={styles.allWork} href="#contact">More selected work <Arrow /></a>
     </section>
@@ -222,7 +219,7 @@ export function PortfolioFooter() {
       <div className={styles.footerSocial}><strong>Socials</strong><div><a href="https://linkedin.com" aria-label="LinkedIn">in</a><a href="https://instagram.com" aria-label="Instagram">ig</a></div></div>
       <a className={styles.backTop} href="#top" aria-label="Back to top">▲</a>
       <div className={styles.footerContact}><a href="mailto:hello@alexrivera.studio">hello@alexrivera.studio</a><a href="tel:+493012345678">+49 30 1234 5678</a></div>
-      <div className={styles.footerMarquee}><span>BASED IN BERLIN · AVAILABLE WORLDWIDE · BASED IN BERLIN · AVAILABLE WORLDWIDE · </span></div>
+      <div className={styles.footerMarquee}><span>PRODUCT ENGINEERING · AI &amp; DATA SYSTEMS · SECURE PLATFORMS · PRODUCT ENGINEERING · AI &amp; DATA SYSTEMS · SECURE PLATFORMS · </span></div>
       <div className={styles.footerLegal}><span>©2026 Alex Rivera. Built with intent.</span><a href="#privacy">Privacy policy</a></div>
     </footer>
   </section>
