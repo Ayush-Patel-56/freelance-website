@@ -19,12 +19,13 @@
   font-weight: 400;
   font-size: clamp(1.5rem, 3vw, 2.75rem);
   line-height: 1.35;
-  color: var(--color-white);
+  color: var(--color-black);
   text-indent: 3em;
 }
 
 .bold {
   font-weight: 700;
+  color: var(--color-white);
 }
 
 .word {
