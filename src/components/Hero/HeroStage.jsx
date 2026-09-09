@@ -65,7 +65,7 @@ export function HeroStage() {
         .to(
           marqueeSectionRef.current,
           { backgroundColor: '#f96f39', ease: 'none', duration: 0.4 },
-          1.1,
+          1.6,
         )
 
       return () => {

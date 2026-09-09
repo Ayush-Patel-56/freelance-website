@@ -3,10 +3,16 @@
   left: 0;
   right: 0;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(calc(-50% + clamp(12rem, 19vw, 19rem)));
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
+}
+
+@media (max-width: 640px) {
+  .marquee {
+    transform: translateY(calc(-50% + clamp(8rem, 32.5vw, 10rem)));
+  }
 }
 
 .track {
