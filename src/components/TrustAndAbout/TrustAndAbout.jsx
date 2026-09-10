@@ -171,8 +171,8 @@ export function TrustAndAbout() {
           </div>
         </div>
         <div className={styles.aboutContent}>
-          <h2 id="about-title">We have a <i>passion</i><br />for <i>design</i> and<br /><i>strategy.</i></h2>
-          <div className={styles.aboutCopy}><p>Our curiosity for design has always gone hand in hand with a love of strategy and technology. We build visual systems that feel clear, useful, and full of character.</p><p>Today, we help ambitious teams create brands and websites that communicate with confidence, build trust, and support meaningful growth.</p></div>
+          <h2 id="about-title">We have a <i>passion</i><br />for <i>engineering</i> and<br /><i>craft.</i></h2>
+          <div className={styles.aboutCopy}><p>Our curiosity for building things has always gone hand in hand with a love of solving real problems. We write code that feels clear, reliable, and built to last.</p><p>Today, we help ambitious founders ship products that work under real conditions, hold up in production, and support real growth.</p></div>
           <a href="#contact">Let’s get in touch <span>↗</span></a>
         </div>
       </div>
