@@ -9,6 +9,8 @@ import jaiRamdevBusiness from '../../assets/jai-ramdev-business.png'
 import fitoraDashboard from '../../assets/fitora-dashboard.png'
 import sahajWork from '../../assets/sahaj.png'
 import sahajPhilosophy from '../../assets/sahaj-1.png'
+import pivotpackHero from '../../assets/pivotpack.png'
+import pivotpackDesigns from '../../assets/pivotpack-1.png'
 import styles from './PortfolioPage.module.css'
 
 const projects = [
@@ -40,6 +42,12 @@ const smallScaleProjects = [
     demoUrl: 'https://fitora-alpha.vercel.app/',
     note: 'A focused training platform that gives every workout a clearer, more motivating home.',
     images: [fitoraDashboard, fitoraDashboard],
+  },
+  {
+    number: '05', title: 'PivotPack', year: '2026', tags: ['Custom packaging', 'Web design'],
+    demoUrl: 'https://pivot-pack.vercel.app/',
+    note: 'A patent-pending custom cup packaging brand, letting customers design personalized coffee cups for festivals, weddings, and corporate events.',
+    images: [pivotpackHero, pivotpackDesigns],
   },
 ]
 
