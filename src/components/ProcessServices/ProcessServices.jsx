@@ -5,10 +5,10 @@ import platformSecurity from '../../assets/service-platform-security.png'
 import styles from './ProcessServices.module.css'
 
 const processSteps = [
-  { number: '01', title: 'Discover', text: 'We align on the problem, priorities, users and the outcomes that will make the work matter.', theme: 'paper' },
-  { number: '02', title: 'Define', text: 'We turn insight into a focused product plan, a technical approach and a clear delivery roadmap.', theme: 'sunset' },
-  { number: '03', title: 'Build', text: 'Design, engineering and intelligence come together in a product that is crafted for real-world use.', theme: 'electric' },
-  { number: '04', title: 'Evolve', text: 'We launch with confidence, then improve the experience, performance and systems as you grow.', theme: 'dark' },
+  { number: '01', title: 'Discover', text: 'We dig into the problem, the users, and what actually needs to ship, no guessing, no assumptions carried in from another project.', theme: 'paper' },
+  { number: '02', title: 'Define', text: "We turn what we've learned into a clear technical plan, an honest timeline, and a scope you can hold us to.", theme: 'sunset' },
+  { number: '03', title: 'Build', text: "Design and engineering move together, we write code that's built for production, not just built to demo.", theme: 'electric' },
+  { number: '04', title: 'Evolve', text: 'We ship with confidence, then keep improving performance, features, and reliability as you grow.', theme: 'dark' },
 ]
 
 const services = [
