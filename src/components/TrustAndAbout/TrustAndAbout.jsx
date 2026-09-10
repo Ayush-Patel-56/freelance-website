@@ -2,7 +2,10 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from '../../lib/gsap'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
-import { site } from '../../content/site'
+import monikaPhoto from '../../assets/monika_pic.jpeg'
+import ayushPhoto from '../../assets/ayush-pic.png'
+import kdPhoto from '../../assets/kd_pic.jpeg'
+import kunalPhoto from '../../assets/kunal_pic.jpeg'
 import styles from './TrustAndAbout.module.css'
 
 const clientRows = [
@@ -15,10 +18,10 @@ const testimonials = [
   { quote: 'From the first conversation to launch, Alex understood our ambitions. The finished site has helped us speak with confidence and grow with intention.', name: 'Rae Sullivan', role: 'Co-founder, North', logo: 'NØRTH' },
 ]
 const teamMembers = [
-  { name: site.name, role: 'Creative Director', bio: 'Shapes the studio’s creative direction and turns ambitious ideas into clear, useful digital systems.', photo: site.avatar, tone: 'coral' },
-  { name: 'Team member 02', role: 'Brand Strategy', bio: 'Add this person’s short introduction, experience, and the part they play in each client partnership.', tone: 'sand' },
-  { name: 'Team member 03', role: 'Web Development', bio: 'Add this person’s short introduction, technical strengths, and the platforms they specialise in.', tone: 'blue' },
-  { name: 'Team member 04', role: 'Client Partnerships', bio: 'Add this person’s short introduction, client focus, and the way they support each project.', tone: 'violet' },
+  { name: 'Monika', role: 'Machine Learning Engineer', bio: 'Builds intelligent systems end to end, from machine learning models and data analysis to full-stack apps running on resilient cloud infrastructure.', photo: monikaPhoto, tone: 'coral' },
+  { name: 'Ayush', role: 'Systems & Solutions Architect', bio: 'Designs cloud-native systems end to end, covering architecture, DevOps automation, and mobile development, so products run smoothly at scale.', photo: ayushPhoto, tone: 'sand' },
+  { name: 'KD', role: 'Full-Stack Developer', bio: 'Builds complete web applications across the stack, from backend services and APIs to polished, responsive frontend interfaces.', photo: kdPhoto, tone: 'blue' },
+  { name: 'Kunal', role: 'iOS & AI Engineer', bio: 'Ships native iOS experiences and applies strong foundations in data science and algorithms to build intelligent, full-stack products.', photo: kunalPhoto, tone: 'violet' },
 ]
 
 export function TrustAndAbout() {
