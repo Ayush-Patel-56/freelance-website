@@ -7,6 +7,8 @@ import academicPlanning from '../../assets/academic-planning.png'
 import drParthPortfolio from '../../assets/dr-parth-portfolio.png'
 import jaiRamdevBusiness from '../../assets/jai-ramdev-business.png'
 import fitoraDashboard from '../../assets/fitora-dashboard.png'
+import sahajWork from '../../assets/sahaj.png'
+import sahajPhilosophy from '../../assets/sahaj-1.png'
 import styles from './PortfolioPage.module.css'
 
 const projects = [
@@ -24,6 +26,11 @@ const projects = [
     number: '03', title: 'Business Website', year: '2026', tags: ['Business website', 'Web design', 'Development'], color: 'forest',
     words: ['JAI RAMDEV', 'TIMBER', 'J/R'], note: 'A clear, conversion-focused website for Jai Ramdev Timber & Plywood, connecting customers to products and enquiries.',
     images: [jaiRamdevBusiness], demoUrl: 'https://jai-ramdev-timber-and-plywood.vercel.app/',
+  },
+  {
+    number: '04', title: 'Architecture Studio Website', year: '2026', tags: ['Architecture portfolio', 'Web design', 'Development'], color: 'violet',
+    words: ['STUDIO SAHAJ', 'ARCHITECTURE', 'S/S'], note: 'A portfolio site for Studio Sahaj, an Ahmedabad-rooted architecture studio with a global presence, presenting cultural, residential, and institutional work through a filterable project grid.',
+    images: [sahajWork, sahajPhilosophy], demoUrl: 'https://studiosahaj.vercel.app/',
   },
 ]
 
