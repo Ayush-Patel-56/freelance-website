@@ -1,17 +1,18 @@
 export const site = {
-  name: 'Marek Vataha',
-  tagline: "We’re Marek Vataha, a Prague-based digital studio.",
+  name: 'LitmusFront',
+  initials: 'LF',
+  tagline: "We’re LitmusFront, a dev collective.",
   avatar: '/src/assets/avatar.jpg',
   headline: {
     lineOne: [
-      { type: 'text', value: 'DIGITAL' },
+      { type: 'text', value: 'BATTLE-TESTED' },
       {
         type: 'image',
         alt: 'Digital product interface thumbnail',
         src: '/src/assets/thumb-brand.jpg',
         aspect: 'book',
       },
-      { type: 'text', value: 'SYSTEMS' },
+      { type: 'text', value: 'CODE' },
       {
         type: 'image',
         alt: 'AI and data system thumbnail',
@@ -21,8 +22,8 @@ export const site = {
       { type: 'accent', value: 'that' },
     ],
     lineTwo: [
-      { type: 'text', value: 'SCALE' },
-      { type: 'accent', value: 'securely.' },
+      { type: 'text', value: 'SHIPS' },
+      { type: 'accent', value: 'reliably.' },
     ],
   },
   actions: {

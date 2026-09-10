@@ -81,7 +81,7 @@ export function HeroStage() {
     <div className={styles.stage}>
       <section className={styles.hero} ref={heroRef}>
         <div className={styles.heroNotch}>
-          <span className={styles.notchLetter}>{site.name.charAt(0)}</span>
+          <span className={styles.notchLetter}>{site.initials}</span>
           <img src={site.avatar} alt={site.name} className={styles.notchAvatar} />
         </div>
         <div className={styles.heroContent}>
