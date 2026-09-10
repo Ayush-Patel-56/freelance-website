@@ -45,16 +45,16 @@ export const site = {
   badgeText: 'Build useful products that perform and scale',
   brandStatement: [
     { value: 'We build ' },
-    { value: 'digital products', bold: true },
+    { value: 'web applications', bold: true },
     { value: ', ' },
-    { value: 'AI-enabled workflows', bold: true },
+    { value: 'mobile apps', bold: true },
     { value: ', and ' },
-    { value: 'secure platforms', bold: true },
+    { value: 'cloud-native infrastructure', bold: true },
     {
       value:
-        '. We combine product strategy, experience design, and engineering to turn complex challenges into ',
+        '. We combine full-stack engineering, API design, and DevOps to turn complex requirements into ',
     },
-    { value: 'clear, reliable experiences', bold: true },
-    { value: ' that grow with your business.' },
+    { value: 'clean, production-ready systems', bold: true },
+    { value: ' that scale with your business.' },
   ],
 }
