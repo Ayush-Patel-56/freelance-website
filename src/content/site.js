@@ -6,22 +6,10 @@ export const site = {
   headline: {
     lineOne: [
       { type: 'text', value: 'BATTLE-TESTED' },
-      {
-        type: 'image',
-        alt: 'Digital product interface thumbnail',
-        src: '/src/assets/thumb-brand.jpg',
-        aspect: 'book',
-      },
       { type: 'text', value: 'CODE' },
-      {
-        type: 'image',
-        alt: 'AI and data system thumbnail',
-        src: '/src/assets/thumb-web.jpg',
-        aspect: 'screen',
-      },
-      { type: 'accent', value: 'that' },
     ],
     lineTwo: [
+      { type: 'accent', value: 'that' },
       { type: 'text', value: 'SHIPS' },
       { type: 'accent', value: 'reliably.' },
     ],
