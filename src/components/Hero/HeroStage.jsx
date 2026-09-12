@@ -82,33 +82,11 @@ export function HeroStage() {
       <section className={styles.hero} ref={heroRef}>
         <div className={styles.heroNotch}>
           <span className={styles.notchLetter}>{site.initials}</span>
-          <img src={site.avatar} alt={site.name} className={styles.notchAvatar} />
+          <span className={styles.notchDot} aria-hidden="true" />
         </div>
         <div className={styles.heroContent}>
           <HeroTagline />
           <HeroHeadline />
-        </div>
-        <div className={styles.heroBottomBar}>
-          <div className={styles.socialIcons}>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className={styles.circleBtn}
-            >
-              in
-            </a>
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              className={styles.circleBtn}
-            >
-              f
-            </a>
-          </div>
         </div>
       </section>
       <section className={styles.marqueeSection} ref={marqueeSectionRef}>

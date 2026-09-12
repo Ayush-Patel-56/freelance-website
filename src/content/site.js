@@ -2,7 +2,6 @@ export const site = {
   name: 'LitmusFront',
   initials: 'LF',
   tagline: "We’re LitmusFront, a dev collective.",
-  avatar: '/src/assets/avatar.jpg',
   headline: {
     lineOne: [
       { type: 'text', value: 'BATTLE-TESTED' },

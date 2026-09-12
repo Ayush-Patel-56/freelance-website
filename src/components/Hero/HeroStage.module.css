@@ -73,11 +73,11 @@
   letter-spacing: -0.06em;
 }
 
-.notchAvatar {
+.notchDot {
   width: clamp(38px, 3.4vw, 48px);
   height: clamp(38px, 3.4vw, 48px);
   border-radius: 50%;
-  object-fit: cover;
+  flex-shrink: 0;
   background: var(--signal, #ef5323);
   box-shadow: 0 4px 12px rgba(239, 83, 35, 0.28);
 }
@@ -91,43 +91,6 @@
   align-items: flex-start;
   position: relative;
   z-index: 2;
-}
-
-.heroBottomBar {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  z-index: 3;
-  padding-top: 24px;
-}
-
-.socialIcons {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.circleBtn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(24, 24, 24, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #1a1a1a;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
-}
-
-.circleBtn:hover {
-  background: #1a1a1a;
-  color: #ffffff;
-  transform: translateY(-2px);
 }
 
 .marqueeSection {
@@ -152,7 +115,7 @@
   .notchLetter {
     font-size: 26px;
   }
-  .notchAvatar {
+  .notchDot {
     width: 34px;
     height: 34px;
   }
