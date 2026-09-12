@@ -97,3 +97,337 @@
 .teamInlineData p { margin: 0 0 8px; color: var(--signal); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }.teamInlineData h3 { margin: 0; font-size: clamp(18px, 1.65vw, 24px); letter-spacing: -.06em; }.teamInlineData > strong { display: block; margin-top: 3px; color: rgba(255,255,255,.7); font-size: 11px; font-weight: 600; }.teamInlineData > span { position: static; display: block; margin-top: 13px; color: rgba(255,255,255,.88); font-size: 12px; line-height: 1.35; letter-spacing: -.025em; }
 
 @media (max-width: 767px) { .portrait { min-height: 570px; }.portraitExpanded { min-height: 810px; }.teamHeader { top: 28px; }.teamHeader h3 { font-size: 44px; }.teamHeader small { top: auto; right: auto; bottom: -70px; }.teamRail { top: 220px; gap: 12px; }.teamItem { flex-basis: min(72vw, 310px); height: 320px; }.teamData { right: 14px; bottom: 14px; width: calc(100% - 28px); }.aboutContent { padding: 42px 16px; } }
+
+/* Client logos keep moving on phones, while their larger tiles remain legible. */
+@media (max-width: 767px) {
+  .logoRows {
+    gap: 10px;
+    overflow: hidden;
+  }
+
+  .logoRow {
+    width: max-content;
+    gap: 10px;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .logoRow .logo {
+    width: min(72vw, 280px);
+    min-height: 126px;
+    flex-basis: min(72vw, 280px);
+    padding: 18px;
+    border-radius: 18px;
+    font-size: clamp(20px, 6.2vw, 24px);
+    line-height: .98;
+    text-align: center;
+  }
+
+  /* Keep the existing team layout; reserve enough vertical space for the
+     detail panel that appears after a member card is tapped. */
+  .portraitExpanded {
+    min-height: 900px;
+  }
+
+  .teamInlineData {
+    top: calc(100% + 20px);
+    right: 0;
+    left: 0;
+    z-index: 8;
+    display: block;
+    padding: 17px 16px 16px;
+  }
+
+  .teamInlineData > span {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+}
+
+/* The desktop rail cannot preserve readable captions in a narrow viewport.
+   A compact two-up gallery keeps every portrait label inside the visible card. */
+.mobileTeamInlineData {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .portrait {
+    min-height: 630px;
+  }
+
+  .portraitExpanded {
+    min-height: 840px;
+  }
+
+  .teamRail {
+    top: 220px;
+    right: 14px;
+    left: 14px;
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    transform: none !important;
+  }
+
+  .teamItem {
+    width: auto;
+    height: clamp(175px, 46vw, 215px);
+    flex: none;
+  }
+
+  .teamRail .teamCard,
+  .teamRail .teamCard:nth-child(n),
+  .teamRail .teamCard:hover,
+  .teamRail .teamCard:focus-visible,
+  .teamItemSelected .teamCard {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    transform: none !important;
+  }
+
+  .teamRail .teamInfo {
+    min-height: 72px;
+    padding: 38px 9px 9px;
+    transform: none;
+  }
+
+  .teamRail .teamInfo strong {
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .teamRail .teamInfo small {
+    min-height: 24px;
+    margin-top: 4px;
+    overflow: visible;
+    font-size: 10px;
+    line-height: 1.15;
+    text-overflow: clip;
+    white-space: normal;
+  }
+
+  .teamRail .teamPhoto img {
+    object-position: center 22%;
+    transform: none;
+  }
+
+  .teamItem .teamInlineData {
+    display: none;
+  }
+
+  .mobileTeamInlineData {
+    position: absolute;
+    z-index: 8;
+    top: 670px;
+    right: 14px;
+    left: 14px;
+    display: block;
+    padding: 16px;
+    color: var(--white);
+    background: rgba(13,13,13,.96);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 14px;
+    box-shadow: 0 18px 34px rgba(0,0,0,.32);
+  }
+
+  .mobileTeamInlineData p {
+    margin: 0 0 7px;
+    color: var(--signal);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .mobileTeamInlineData h3 {
+    margin: 0;
+    font-size: 21px;
+    letter-spacing: -.055em;
+  }
+
+  .mobileTeamInlineData > strong {
+    display: block;
+    margin-top: 3px;
+    color: rgba(255,255,255,.7);
+    font-size: 12px;
+  }
+
+  .mobileTeamInlineData > span {
+    position: static;
+    display: block;
+    margin-top: 11px;
+    color: rgba(255,255,255,.88);
+    font-size: 13px;
+    line-height: 1.35;
+  }
+}
+
+/* iPad portrait and landscape: keep two full cards in view and leave the
+   editorial rail treatment for wider screens where it has room to travel. */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .clients {
+    padding: 108px 0 96px;
+  }
+
+  .clients > h2 {
+    max-width: 860px;
+    margin-bottom: 72px;
+    font-size: clamp(42px, 5.8vw, 56px);
+  }
+
+  .logoRow .logo {
+    width: min(31vw, 288px);
+    min-height: 150px;
+    flex-basis: min(31vw, 288px);
+    font-size: clamp(24px, 3.2vw, 32px);
+  }
+
+  .about {
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-bottom: 108px;
+  }
+
+  .portrait {
+    min-height: 660px;
+  }
+
+  .portraitExpanded {
+    min-height: 930px;
+  }
+
+  .teamHeader {
+    top: 34px;
+    right: 32px;
+    left: 32px;
+  }
+
+  .teamHeader h3 {
+    font-size: clamp(50px, 7vw, 66px);
+  }
+
+  .teamRail {
+    top: 252px;
+    left: 30px;
+    gap: 16px;
+  }
+
+  .teamItem {
+    flex-basis: min(40vw, 330px);
+    height: 360px;
+  }
+
+  .teamRail .teamInfo {
+    padding: 72px 16px 16px;
+  }
+
+  .teamRail .teamInfo strong {
+    font-size: 19px;
+  }
+
+  .teamRail .teamInfo small {
+    font-size: 12px;
+  }
+
+  .teamInlineData {
+    top: calc(100% + 22px);
+    padding: 18px;
+  }
+
+  .aboutContent {
+    padding: 72px 32px 56px;
+  }
+
+  .aboutContent h2 {
+    font-size: clamp(68px, 9.5vw, 92px);
+  }
+
+  .aboutCopy {
+    gap: 38px;
+  }
+}
+
+/* Feedback cards use a deliberately calm layout below desktop widths. The
+   decorative disc remains, but it no longer pushes quotes into one another. */
+@media (max-width: 1024px) {
+  .testimonial {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .testimonials {
+    min-height: auto;
+    margin-top: -96px;
+    padding: 72px 28px 92px;
+  }
+
+  .disc {
+    width: min(680px, 86vw);
+    top: 18px;
+  }
+
+  .testimonialGrid {
+    min-height: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 14px;
+    padding-top: 270px;
+  }
+
+  .testimonial {
+    min-height: 286px;
+    padding: 26px;
+  }
+
+  .testimonial:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .testimonials {
+    min-height: auto;
+    margin-top: -58px;
+    padding: 34px 14px 72px;
+  }
+
+  .disc {
+    width: min(540px, 142vw);
+    top: 12px;
+  }
+
+  .testimonialGrid {
+    min-height: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding-top: 300px;
+  }
+
+  .testimonial {
+    width: 100%;
+    min-height: 0;
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  .testimonial > p {
+    font-size: 16px;
+    line-height: 1.34;
+  }
+
+  .testimonial footer {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 9px;
+    padding-top: 18px;
+  }
+
+  .testimonial footer .testimonialLogo {
+    font-size: 13px;
+  }
+}

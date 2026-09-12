@@ -80,22 +80,24 @@ export function TrustAndAbout() {
       media.add({ desktop: '(min-width: 768px)', mobile: '(max-width: 767px)' }, (context) => {
         const { mobile } = context.conditions
 
-        gsap.to(teamRail.current, {
-          x: () => -Math.max(0, teamRail.current.scrollWidth - portrait.current.clientWidth + (mobile ? 28 : 72)),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: portrait.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-            invalidateOnRefresh: true,
-          },
-        })
+        if (!mobile) {
+          gsap.to(teamRail.current, {
+            x: () => -Math.max(0, teamRail.current.scrollWidth - portrait.current.clientWidth + 72),
+            ease: 'none',
+            scrollTrigger: {
+              trigger: portrait.current,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          })
+        }
 
         cardNodes.forEach((card, index) => {
           const visual = teamImages.current[index] || teamPhotos.current[index]
           const info = teamInfo.current[index]
-          const offset = mobile ? (index % 2 === 0 ? -8 : -18) : (index % 2 === 0 ? -20 : -42)
+          const offset = mobile ? 0 : (index % 2 === 0 ? -20 : -42)
 
           gsap.to(visual, {
             y: offset,
@@ -171,6 +173,13 @@ export function TrustAndAbout() {
                 </aside>}
               </div>)}
             </div>
+            {selectedMember !== null && <aside className={styles.mobileTeamInlineData} aria-live="polite">
+              <button type="button" className={styles.closeTeamData} onClick={() => setSelectedMember(null)} aria-label="Close team member details">×</button>
+              <p>Team member {String(selectedMember + 1).padStart(2, '0')}</p>
+              <h3>{teamMembers[selectedMember].name}</h3>
+              <strong>{teamMembers[selectedMember].role}</strong>
+              <span>{teamMembers[selectedMember].bio}</span>
+            </aside>}
           </div>
         </div>
         <div className={styles.aboutContent}>
