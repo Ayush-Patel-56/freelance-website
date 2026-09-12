@@ -23,10 +23,10 @@
 
 .text {
   font-family: var(--font-body);
-  font-size: 0.62rem;
+  font-size: 0.5rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   fill: var(--color-black);
 }
 

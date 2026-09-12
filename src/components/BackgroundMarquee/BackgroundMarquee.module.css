@@ -19,7 +19,7 @@
   display: flex;
   width: max-content;
   white-space: nowrap;
-  font-size: clamp(4rem, 14vw, 12rem);
+  font-size: clamp(3rem, 10vw, 8rem);
   line-height: 1;
 }
 
