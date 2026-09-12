@@ -178,7 +178,7 @@ export function PortfolioFooter() {
     ].filter(Boolean), {
       y: 38, opacity: 0, duration: 0.72, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: lead, start: 'top 74%', once: true },
     })
-    const footerTween = gsap.from(footer.querySelectorAll(`.${styles.footerMonogram}, .${styles.footerSocial}, .${styles.footerContact}, .${styles.footerMarquee}, .${styles.footerLegal}`), {
+    const footerTween = gsap.from(footer.querySelectorAll(`.${styles.footerMonogram}, .${styles.backTop}, .${styles.footerContact}, .${styles.footerMarquee}, .${styles.footerLegal}`), {
       y: 34, opacity: 0, duration: 0.62, stagger: 0.09, ease: 'power3.out', scrollTrigger: { trigger: footer, start: 'top 78%', once: true },
     })
     return () => { leadTween.kill(); footerTween.kill() }
@@ -187,7 +187,7 @@ export function PortfolioFooter() {
   return <section ref={root} id="contact" className={styles.contact}>
     <div className={styles.contactLead}>
       <div className={styles.contactHeader}>
-        <p className={styles.contactEyebrow}>Fluent in English, German and Spanish</p>
+        <p className={styles.contactEyebrow}>Fluent in English and Hindi</p>
         <h2 className={styles.contactTitle}>Let’s discuss<br /><i>your</i> vision.</h2>
         <p className={styles.contactBio}>
           Have a project in mind, an inquiry, or just want to explore possibilities?
@@ -196,8 +196,14 @@ export function PortfolioFooter() {
         <div className={styles.contactDirect}>
           <div className={styles.contactDirectItem}>
             <span className={styles.contactDirectLabel}>Direct inquiry</span>
-            <a href="mailto:hello@alexrivera.studio" className={styles.contactDirectLink}>
-              hello@alexrivera.studio <Arrow />
+            <a href="mailto:litmusfront@gmail.com" className={styles.contactDirectLink}>
+              litmusfront@gmail.com <Arrow />
+            </a>
+          </div>
+          <div className={styles.contactDirectItem}>
+            <span className={styles.contactDirectLabel}>Call us</span>
+            <a href="tel:+918238427405" className={styles.contactDirectLink}>
+              +91 82384 27405 <Arrow />
             </a>
           </div>
           <div className={styles.contactDirectItem}>
@@ -230,12 +236,11 @@ export function PortfolioFooter() {
       </form>
     </div>
     <footer className={styles.studioFooter}>
-      <div className={styles.footerMonogram}>A<i /></div>
-      <div className={styles.footerSocial}><strong>Socials</strong><div><a href="https://linkedin.com" aria-label="LinkedIn">in</a><a href="https://instagram.com" aria-label="Instagram">ig</a></div></div>
+      <div className={styles.footerMonogram}>LF<i /></div>
       <a className={styles.backTop} href="#top" aria-label="Back to top">▲</a>
-      <div className={styles.footerContact}><a href="mailto:hello@alexrivera.studio">hello@alexrivera.studio</a><a href="tel:+493012345678">+49 30 1234 5678</a></div>
+      <div className={styles.footerContact}><a href="mailto:litmusfront@gmail.com">litmusfront@gmail.com</a><a href="tel:+918238427405">+91 82384 27405</a></div>
       <div className={styles.footerMarquee}><span>PRODUCT ENGINEERING · AI &amp; DATA SYSTEMS · SECURE PLATFORMS · PRODUCT ENGINEERING · AI &amp; DATA SYSTEMS · SECURE PLATFORMS · </span></div>
-      <div className={styles.footerLegal}><span>©2026 Alex Rivera. Built with intent.</span><a href="#privacy">Privacy policy</a></div>
+      <div className={styles.footerLegal}><span>©2026 LitmusFront. Built with intent.</span><a href="#privacy">Privacy policy</a></div>
     </footer>
   </section>
 }

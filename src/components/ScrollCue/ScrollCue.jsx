@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from '../../lib/gsap'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
@@ -7,6 +7,14 @@ import styles from './ScrollCue.module.css'
 export function ScrollCue() {
   const buttonRef = useRef(null)
   const prefersReducedMotion = usePrefersReducedMotion()
+  const [isNearTop, setIsNearTop] = useState(true)
+
+  useEffect(() => {
+    const handleScroll = () => setIsNearTop(window.scrollY < window.innerHeight * 0.5)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useGSAP(() => {
     if (prefersReducedMotion) return
@@ -30,6 +38,9 @@ export function ScrollCue() {
       type="button"
       className={styles.scrollCue}
       aria-label="Scroll down"
+      aria-hidden={!isNearTop}
+      tabIndex={isNearTop ? 0 : -1}
+      data-hidden={!isNearTop}
       onClick={handleClick}
     >
       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">

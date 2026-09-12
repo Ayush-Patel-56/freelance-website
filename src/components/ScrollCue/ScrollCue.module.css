@@ -13,6 +13,14 @@
   justify-content: center;
   cursor: pointer;
   z-index: 10;
+  opacity: 1;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.scrollCue[data-hidden='true'] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .scrollCue:hover {
