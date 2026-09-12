@@ -293,12 +293,12 @@
   transform: translateY(-1px) scale(0.99);
 }
 
-.studioFooter { margin: 0; padding: 64px 42px 26px; display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto auto auto; gap: 12px; position: relative; color: var(--ink); background: rgba(255,255,255,.95); border-radius: 34px; overflow: hidden; }
+.studioFooter { margin: 0; padding: 64px 42px 34px; display: grid; grid-template-columns: 1fr auto; grid-template-rows: minmax(160px, auto) auto auto auto; gap: 20px; position: relative; color: var(--ink); background: rgba(255,255,255,.95); border-radius: 34px; overflow: hidden; }
 .footerMonogram { grid-row: 1; grid-column: 1; width: 164px; height: 122px; display: flex; align-items: center; gap: 8px; margin: -64px 0 0 -42px; padding: 30px 16px 0 32px; font-size: 58px; font-weight: 400; letter-spacing: -.06em; background: var(--paper); border-radius: 0 0 34px 0; }
 .footerMonogram i { width: 60px; aspect-ratio: 1; display: block; border-radius: 50%; background: var(--signal); }
-.backTop { grid-row: 1; grid-column: 2; align-self: start; justify-self: end; margin-top: 8px; width: 54px; height: 54px; display: grid; place-items: center; color: var(--ink); border: 1.5px solid currentColor; border-radius: 50%; font-size: 17px; font-weight: 700; line-height: 1; text-decoration: none; transition: color .25s ease, background .25s ease, transform .25s ease; }
+.backTop { grid-row: 1; grid-column: 2; align-self: start; justify-self: end; margin-top: 24px; width: 54px; height: 54px; display: grid; place-items: center; color: var(--ink); border: 1.5px solid currentColor; border-radius: 50%; font-size: 17px; font-weight: 700; line-height: 1; text-decoration: none; transition: color .25s ease, background .25s ease, transform .25s ease; }
 .backTop:hover { color: white; background: var(--ink); transform: translateY(-3px); }
-.footerContact { min-height: 130px; grid-column: 1 / -1; padding: 0 38px; display: flex; align-items: center; justify-content: space-between; gap: 28px; background: var(--paper); border-radius: 22px; }
+.footerContact { min-height: 130px; grid-column: 1 / -1; padding: 0 38px; display: flex; align-items: center; justify-content: space-between; gap: 28px; background: #fff; border-radius: 22px; }
 .footerContact a { color: var(--ink); font-size: clamp(27px, 4.1vw, 68px); font-weight: 600; letter-spacing: -.075em; line-height: 1; text-decoration: none; transition: color .25s ease; }
 .footerContact a:hover { color: var(--signal); }
 .footerMarquee { height: 250px; grid-column: 1 / -1; display: flex; align-items: center; overflow: hidden; color: var(--ink); background: var(--paper); border-radius: 22px; white-space: nowrap; }
