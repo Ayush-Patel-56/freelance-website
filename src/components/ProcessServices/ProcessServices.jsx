@@ -2,13 +2,17 @@ import { useState } from 'react'
 import productEngineering from '../../assets/service-product-engineering.png'
 import aiData from '../../assets/service-ai-data.png'
 import platformSecurity from '../../assets/service-platform-security.png'
+import processDiscover from '../../assets/process-discover.jpg'
+import processDefine from '../../assets/process-define.jpg'
+import processBuild from '../../assets/process-build.jpg'
+import processEvolve from '../../assets/process-evolve.jpg'
 import styles from './ProcessServices.module.css'
 
 const processSteps = [
-  { number: '01', title: 'Discover', text: 'We dig into the problem, the users, and what actually needs to ship, no guessing, no assumptions carried in from another project.', theme: 'paper' },
-  { number: '02', title: 'Define', text: "We turn what we've learned into a clear technical plan, an honest timeline, and a scope you can hold us to.", theme: 'sunset' },
-  { number: '03', title: 'Build', text: "Design and engineering move together, we write code that's built for production, not just built to demo.", theme: 'electric' },
-  { number: '04', title: 'Evolve', text: 'We ship with confidence, then keep improving performance, features, and reliability as you grow.', theme: 'dark' },
+  { number: '01', title: 'Discover', text: 'We dig into the problem, the users, and what actually needs to ship, no guessing, no assumptions carried in from another project.', image: processDiscover, alt: 'Team collaborating around sticky notes during a discovery session' },
+  { number: '02', title: 'Define', text: "We turn what we've learned into a clear technical plan, an honest timeline, and a scope you can hold us to.", image: processDefine, alt: 'Team planning a technical roadmap on a glass wall' },
+  { number: '03', title: 'Build', text: "Design and engineering move together, we write code that's built for production, not just built to demo.", image: processBuild, alt: 'Close-up of code on a computer screen' },
+  { number: '04', title: 'Evolve', text: 'We ship with confidence, then keep improving performance, features, and reliability as you grow.', image: processEvolve, alt: 'Analytics dashboard showing growth data' },
 ]
 
 const services = [
@@ -43,8 +47,10 @@ const services = [
 
 function Arrow() { return <span className={styles.arrow} aria-hidden="true">↗</span> }
 
-function ProcessArtwork({ theme }) {
-  return <div className={`${styles.processArt} ${styles[theme]}`} aria-hidden="true"><span /><i /><b /></div>
+function ProcessArtwork({ image, alt }) {
+  return <div className={styles.processArt}>
+    <img src={image} alt={alt} />
+  </div>
 }
 
 function ServiceArtwork({ image, alt }) {
@@ -62,7 +68,7 @@ export function ProcessServices() {
       <div className={styles.stack}>
         {processSteps.map((step) => <article className={styles.processCard} key={step.number}>
           <div className={styles.processCardTop}><h3>{step.title}</h3><span>{step.number}</span></div>
-          <ProcessArtwork theme={step.theme} />
+          <ProcessArtwork image={step.image} alt={step.alt} />
           <p>{step.text}</p>
           <a href="#services">Next phase <Arrow /></a>
         </article>)}
