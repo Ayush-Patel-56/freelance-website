@@ -43,8 +43,8 @@ export function BrandStatement() {
         ease: 'none',
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'bottom 55%',
+          start: 'top 85%',
+          end: 'top 25%',
           scrub: 0.6,
         },
       })
