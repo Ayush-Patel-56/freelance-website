@@ -8,7 +8,7 @@ describe('PortfolioFooter contact form & headings', () => {
 
     // Verify contact section and heading hierarchy
     expect(screen.getByRole('heading', { level: 2, name: /let’s discuss your vision/i })).toBeInTheDocument()
-    expect(screen.getByText(/fluent in english, german and spanish/i)).toBeInTheDocument()
+    expect(screen.getByText(/fluent in english and hindi/i)).toBeInTheDocument()
 
     // Verify input fields with associated labels
     expect(screen.getByLabelText(/your name/i)).toBeInTheDocument()

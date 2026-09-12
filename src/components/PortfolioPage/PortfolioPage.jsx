@@ -165,6 +165,42 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
 export function PortfolioFooter() {
   const root = useRef(null)
   const reducedMotion = usePrefersReducedMotion()
+  const [formStatus, setFormStatus] = useState('idle')
+  const [formMessage, setFormMessage] = useState('')
+  const contactEndpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT?.trim()
+
+  const submitContactForm = async (event) => {
+    event.preventDefault()
+
+    if (!contactEndpoint) {
+      setFormStatus('error')
+      setFormMessage('This form is not configured yet. Please email us directly.')
+      return
+    }
+
+    const form = event.currentTarget
+    const fields = new FormData(form)
+    fields.set('submittedAt', new Date().toISOString())
+    setFormStatus('submitting')
+    setFormMessage('')
+
+    try {
+      // Google Apps Script redirects web-app requests. A simple, no-CORS POST
+      // avoids a browser preflight while still delivering the form body.
+      await fetch(contactEndpoint, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams(fields),
+      })
+      form.reset()
+      setFormStatus('success')
+      setFormMessage('Thanks — your message has been sent. We’ll be in touch soon.')
+    } catch {
+      setFormStatus('error')
+      setFormMessage('We could not send your message. Please try again or email us directly.')
+    }
+  }
+
   useGSAP(() => {
     if (reducedMotion) return undefined
     const lead = root.current?.querySelector(`.${styles.contactLead}`)
@@ -213,7 +249,7 @@ export function PortfolioFooter() {
           </div>
         </div>
       </div>
-      <form className={styles.contactForm} onSubmit={(event) => event.preventDefault()}>
+      <form className={styles.contactForm} onSubmit={submitContactForm}>
         <label className={styles.field} htmlFor="contact-name">
           <span className={styles.fieldTitle}>Your name</span>
           <input id="contact-name" name="name" type="text" autoComplete="name" required />
@@ -222,18 +258,27 @@ export function PortfolioFooter() {
           <span className={styles.fieldTitle}>Your email</span>
           <input id="contact-email" name="email" type="email" autoComplete="email" required />
         </label>
+        <label className={styles.field} htmlFor="contact-phone">
+          <span className={styles.fieldTitle}>Your phone number</span>
+          <input id="contact-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" pattern="[0-9+()\s-]{7,}" title="Enter a valid phone number" required />
+        </label>
         <label className={`${styles.field} ${styles.fieldArea}`} htmlFor="contact-message">
           <span className={styles.fieldTitle}>Your message</span>
           <textarea id="contact-message" name="message" rows="4" required />
         </label>
         <label className={styles.consent}>
-          <input type="checkbox" required />
+          <input name="consent" type="checkbox" value="yes" required />
           <span>I have read the privacy policy and consent to the processing of my personal data for the purpose of responding to my enquiry.</span>
         </label>
-        <button type="submit" className={styles.submitBtn}>
-          <span>Send a message</span>
+        <label className={styles.honeypot} aria-hidden="true">
+          Company
+          <input name="company" type="text" tabIndex="-1" autoComplete="off" />
+        </label>
+        <button type="submit" className={styles.submitBtn} disabled={formStatus === 'submitting'}>
+          <span>{formStatus === 'submitting' ? 'Sending…' : 'Send a message'}</span>
           <Arrow />
         </button>
+        {formMessage && <p className={`${styles.formStatus} ${formStatus === 'error' ? styles.formStatusError : ''}`} role="status" aria-live="polite">{formMessage}</p>}
       </form>
     </div>
     <footer className={styles.studioFooter}>
