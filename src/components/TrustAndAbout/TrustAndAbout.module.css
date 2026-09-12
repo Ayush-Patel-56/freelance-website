@@ -69,7 +69,7 @@
 /* Editorial, scroll-led team rail. It reuses the existing ink, paper and signal palette. */
 .aboutPanel { grid-template-columns: 1fr; gap: 0; }
 .portrait { grid-column: 1 / -1; min-height: clamp(620px, 49vw, 720px); padding: 0; overflow: hidden; background: var(--ink); animation: none; }
-.teamGrid { display: block; height: 100%; overflow: hidden; }
+.teamGrid { position: absolute; inset: 0; display: block; overflow: hidden; }
 .teamHeader { position: absolute; z-index: 3; top: clamp(30px, 4vw, 64px); right: clamp(24px, 4vw, 64px); left: clamp(24px, 4vw, 64px); color: var(--white); }
 .teamHeader::after { content: ''; position: absolute; right: 0; bottom: -24px; left: 0; height: 1px; background: rgba(255,255,255,.28); }
 .teamHeader::before { content: ''; position: absolute; bottom: -24px; left: 0; width: 52%; height: 2px; background: var(--signal); }

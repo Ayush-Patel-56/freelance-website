@@ -76,7 +76,8 @@ function WorkCard({ project, isActive, onActivate, onDeactivate, cardRef }) {
   const onKeyDown = (event) => {
     if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onActivate() }
   }
-  return <article ref={cardRef} className={`${styles.workCard} ${isActive ? styles.active : ''}`} onMouseEnter={onActivate} onMouseLeave={onDeactivate} onFocus={onActivate} onKeyDown={onKeyDown} tabIndex="0" aria-label={`${project.title}, ${project.year}`}>
+  const onClick = () => { if (isActive && onDeactivate) onDeactivate(); else onActivate() }
+  return <article ref={cardRef} className={`${styles.workCard} ${isActive ? styles.active : ''}`} onMouseEnter={onActivate} onMouseLeave={onDeactivate} onFocus={onActivate} onClick={onClick} onKeyDown={onKeyDown} tabIndex="0" aria-label={`${project.title}, ${project.year}`}>
     <div className={styles.cardTop}>
       <span className={styles.projectNumber}>{project.number}</span>
       <h3>{project.title} <em>({project.year})</em></h3>
