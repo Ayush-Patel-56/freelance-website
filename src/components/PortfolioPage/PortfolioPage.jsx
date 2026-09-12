@@ -180,8 +180,7 @@ export function PortfolioFooter() {
   useGSAP(() => {
     if (reducedMotion) return undefined
     const lead = root.current?.querySelector(`.${styles.contactLead}`)
-    const footer = root.current?.querySelector(`.${styles.studioFooter}`)
-    if (!lead || !footer) return undefined
+    if (!lead) return undefined
     const leadTween = gsap.from([
       lead.querySelector(`.${styles.contactEyebrow}`),
       lead.querySelector(`.${styles.contactTitle}`),
@@ -191,10 +190,7 @@ export function PortfolioFooter() {
     ].filter(Boolean), {
       y: 38, opacity: 0, duration: 0.72, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: lead, start: 'top 74%', once: true },
     })
-    const footerTween = gsap.from(footer.querySelectorAll(`.${styles.footerMonogram}, .${styles.backTop}, .${styles.footerContact}, .${styles.footerMarquee}, .${styles.footerLegal}`), {
-      y: 34, opacity: 0, duration: 0.62, stagger: 0.09, ease: 'power3.out', scrollTrigger: { trigger: footer, start: 'top 78%', once: true },
-    })
-    return () => { leadTween.kill(); footerTween.kill() }
+    return () => leadTween.kill()
   }, { scope: root, dependencies: [reducedMotion] })
 
   return <section ref={root} id="contact" className={styles.contact}>
@@ -257,12 +253,5 @@ export function PortfolioFooter() {
         {formMessage && <p className={`${styles.formStatus} ${formStatus === 'error' ? styles.formStatusError : ''}`} role="status" aria-live="polite">{formMessage}</p>}
       </form>
     </div>
-    <footer className={styles.studioFooter}>
-      <div className={styles.footerMonogram}>LF<i /></div>
-      <a className={styles.backTop} href="#top" aria-label="Back to top">▲</a>
-      <div className={styles.footerContact}><a href="mailto:litmusfront@gmail.com">litmusfront@gmail.com</a><a href="tel:+918238427405">+91 82384 27405</a></div>
-      <div className={styles.footerMarquee}><span>PRODUCT ENGINEERING · AI &amp; DATA SYSTEMS · SECURE PLATFORMS · PRODUCT ENGINEERING · AI &amp; DATA SYSTEMS · SECURE PLATFORMS · </span></div>
-      <div className={styles.footerLegal}><span>©2026 LitmusFront. Built with intent.</span><a href="#privacy">Privacy policy</a></div>
-    </footer>
   </section>
 }
