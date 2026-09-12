@@ -13,9 +13,9 @@ const clientRows = [
   ['Saanjh Foods', 'Kshetra Labs', 'Academic Planning', 'Dr. Parth’s Clinic', 'Jai Ramdev Timber', 'Fitora'],
 ]
 const testimonials = [
-  { quote: 'Working with Alex gave our company a new sense of focus. He captured the heart of our work and made it easy for the right people to recognise us.', name: 'Maya Phillips', role: 'Founder, Morrow', logo: 'Morrow' },
-  { quote: 'Thoughtful, fast, and unusually clear. Every decision had a reason behind it, and the result is a brand we are proud to bring into the world.', name: 'Noah Reed', role: 'Creative Director' },
-  { quote: 'From the first conversation to launch, Alex understood our ambitions. The finished site has helped us speak with confidence and grow with intention.', name: 'Rae Sullivan', role: 'Co-founder, North', logo: 'NØRTH' },
+  { quote: 'The team gave our clinic a booking system that just works. Patients can schedule visits in seconds, and our front desk finally has one less thing to manage by hand.', name: 'Dr. Parth Shah', role: 'Founder', project: "Dr. Parth's Clinic", rating: 5 },
+  { quote: 'They understood our timber business from day one and built a site that makes it easy for contractors to browse stock and get quotes. Clean work, delivered on schedule.', name: 'Mahendra Kumar Bothra', role: 'Owner', project: 'Jai Ramdev Timber', rating: 5 },
+  { quote: 'Our fitness platform needed to handle real traffic without breaking, and it has. The team stayed sharp on performance and communicated clearly at every stage.', name: 'SM Fitness', role: 'Owner', project: 'Fitora', rating: 4 },
 ]
 const teamMembers = [
   { name: 'Monika', role: 'Machine Learning Engineer', bio: 'Builds intelligent systems end to end, from machine learning models and data analysis to full-stack apps running on resilient cloud infrastructure.', photo: monikaPhoto, tone: 'coral' },
@@ -184,7 +184,7 @@ export function TrustAndAbout() {
     <section className={styles.testimonials} aria-labelledby="testimonials-title">
       <h2 id="testimonials-title">Kind words</h2>
       <div className={styles.disc} ref={disc} aria-hidden="true"><svg viewBox="0 0 500 500"><defs><path id="orbit" d="M250,250 m-187,0 a187,187 0 1,1 374,0 a187,187 0 1,1 -374,0" /></defs><text><textPath href="#orbit">AT THE END OF THE DAY, YOUR SATISFACTION MATTERS MOST · AT THE END OF THE DAY, YOUR SATISFACTION MATTERS MOST · </textPath></text></svg><span>“</span></div>
-      <div className={styles.testimonialGrid}>{testimonials.map((item, index) => <blockquote className={styles.testimonial} key={item.name} ref={(element) => { cards.current[index] = element }}><p>“{item.quote}”</p><footer><div className={styles.testimonialMeta}><strong>{item.name}</strong><span>{item.role}</span></div>{item.logo && <span className={styles.testimonialLogo}>{item.logo}</span>}</footer></blockquote>)}</div>
+      <div className={styles.testimonialGrid}>{testimonials.map((item, index) => <blockquote className={styles.testimonial} key={item.name} ref={(element) => { cards.current[index] = element }}><div className={styles.testimonialRating} aria-label={`${item.rating} out of 5 stars`}>{Array.from({ length: 5 }, (_, i) => <span key={i} aria-hidden="true">{i < item.rating ? '★' : '☆'}</span>)}</div><p>“{item.quote}”</p><footer><div className={styles.testimonialMeta}><strong>{item.name}</strong><span>{item.role}</span></div><span className={styles.testimonialLogo}>{item.project}</span></footer></blockquote>)}</div>
     </section>
   </div>
 }
