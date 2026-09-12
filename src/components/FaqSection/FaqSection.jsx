@@ -47,7 +47,7 @@ function Question({ item, index, active, onToggle }) {
 }
 
 export function FaqSection() {
-  const [active, setActive] = useState(6)
+  const [active, setActive] = useState(-1)
   const root = useRef(null)
   const reducedMotion = usePrefersReducedMotion()
   useGSAP(() => {
