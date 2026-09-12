@@ -34,17 +34,14 @@ const projects = [
     words: ['STUDIO SAHAJ', 'ARCHITECTURE', 'S/S'], note: 'A portfolio site for Studio Sahaj, an Ahmedabad-rooted architecture studio with a global presence, presenting cultural, residential, and institutional work through a filterable project grid.',
     images: [sahajWork, sahajPhilosophy], demoUrl: 'https://studiosahaj.vercel.app/',
   },
-]
-
-const smallScaleProjects = [
   {
-    number: '04', title: 'Fitora', year: '2026', tags: ['Fitness platform', 'Web app'], image: fitoraDashboard,
+    number: '05', title: 'Fitora', year: '2026', tags: ['Fitness platform', 'Web app'], image: fitoraDashboard,
     demoUrl: 'https://fitora-alpha.vercel.app/',
     note: 'A focused training platform that gives every workout a clearer, more motivating home.',
     images: [fitoraDashboard, fitoraDashboard],
   },
   {
-    number: '05', title: 'PivotPack', year: '2026', tags: ['Custom packaging', 'Web design'],
+    number: '06', title: 'PivotPack', year: '2026', tags: ['Custom packaging', 'Web design'],
     demoUrl: 'https://pivot-pack.vercel.app/',
     note: 'A patent-pending custom cup packaging brand, letting customers design personalized coffee cups for festivals, weddings, and corporate events.',
     images: [pivotpackHero, pivotpackDesigns],
@@ -93,21 +90,14 @@ function WorkCard({ project, isActive, onActivate, onDeactivate, cardRef }) {
 
 export function PortfolioPage({ showNav = true, showFooter = true, showHero = true }) {
   const [activeProject, setActiveProject] = useState(null)
-  const [activeSmallProject, setActiveSmallProject] = useState(null)
   const root = useRef(null)
   const cardRefs = useRef([])
-  const smallCardRefs = useRef([])
   const reducedMotion = usePrefersReducedMotion()
   useGSAP(() => {
     if (reducedMotion) return undefined
     const intro = gsap.timeline({ defaults: { ease: 'power3.out' } })
     intro.from(`.${styles.nav}`, { y: -28, opacity: 0, duration: 0.75 }).from(`.${styles.eyebrow}`, { y: 18, opacity: 0, duration: 0.5 }, '-=0.35').from(`.${styles.heroTitle} span`, { yPercent: 115, stagger: 0.08, duration: 0.9 }, '-=0.25').from(`.${styles.heroBottom}`, { y: 22, opacity: 0, duration: 0.55 }, '-=0.45')
     gsap.utils.toArray(`.${styles.reveal}`).forEach((element) => gsap.from(element, { y: 28, opacity: 0, duration: 0.7, ease: 'power2.out', scrollTrigger: { trigger: element, start: 'top 86%', once: true } }))
-    const smallScale = root.current?.querySelector(`.${styles.smallScale}`)
-    const smallScaleTween = smallScale && gsap.from(smallScale.querySelectorAll(`.${styles.smallScaleIntro} > *, .${styles.smallProjectCard}`), {
-      y: 52, opacity: 0, duration: 0.82, stagger: 0.12, ease: 'power3.out',
-      scrollTrigger: { trigger: smallScale, start: 'top 82%', once: true },
-    })
     // The pinned hero above this section changes the document height after mount.
     // Recalculate once layout has settled so the work cards are not left hidden.
     let refreshFrame = requestAnimationFrame(() => {
@@ -120,7 +110,6 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
       cancelAnimationFrame(refreshFrame)
       window.removeEventListener('load', refreshTriggers)
       intro.kill()
-      smallScaleTween?.kill()
     }
   }, { scope: root, dependencies: [reducedMotion] })
 
@@ -133,15 +122,6 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
     return () => tween.kill()
   }, { scope: root, dependencies: [activeProject, reducedMotion] })
 
-  useGSAP(() => {
-    if (reducedMotion || activeSmallProject === null) return undefined
-    const activeCard = smallCardRefs.current[activeSmallProject]
-    if (!activeCard) return undefined
-    const targets = activeCard.querySelectorAll(`.${styles.bodyArt}, .${styles.projectNote}, .${styles.viewLink}`)
-    const tween = gsap.fromTo(targets, { y: 28, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.55, stagger: 0.075, ease: 'power3.out', overwrite: 'auto' })
-    return () => tween.kill()
-  }, { scope: root, dependencies: [activeSmallProject, reducedMotion] })
-
   return <div ref={root} className={styles.portfolio}>
     {showNav && <nav className={styles.nav} aria-label="Primary navigation"><a className={styles.brand} href="#top"><i /> LitmusFront <b>⌄</b></a><div className={styles.navLinks}><a href="#work">Our work</a><a href="#contact">Contact <Arrow /></a></div></nav>}
     {showHero && <header id="top" className={styles.hero}>
@@ -150,12 +130,8 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
       <div className={styles.heroBottom}><div className={styles.socialPills}><a href="https://linkedin.com">Li</a><a href="https://instagram.com">In</a></div><a className={styles.roundButton} href="#work">Explore work <span>↓</span></a></div>
     </header>}
     <section id="work" className={`${styles.work} ${styles.reveal}`} aria-labelledby="work-heading">
-      <div className={styles.workHeading}><p>01 - 03</p><h2 id="work-heading">Projects<span>.</span></h2><p>A considered collection<br />of recent collaborations.</p></div>
+      <div className={styles.workHeading}><p>01 - 06</p><h2 id="work-heading">Projects<span>.</span></h2><p>A considered collection<br />of recent collaborations.</p></div>
       <div className={styles.projectList}>{projects.map((project, index) => <WorkCard key={project.title} project={project} isActive={index === activeProject} onActivate={() => setActiveProject(index)} onDeactivate={() => setActiveProject(null)} cardRef={(element) => { cardRefs.current[index] = element }} />)}</div>
-      <section className={styles.smallScale} aria-labelledby="small-scale-heading">
-        <div className={styles.smallProjectsHeading}><p>04</p><h2 id="small-scale-heading">Small Scale Projects<span>.</span></h2><p>A focused collection<br />of smaller collaborations.</p></div>
-        <div className={styles.projectList}>{smallScaleProjects.map((project, index) => <WorkCard key={project.title} project={project} isActive={index === activeSmallProject} onActivate={() => setActiveSmallProject(index)} onDeactivate={() => setActiveSmallProject(null)} cardRef={(element) => { smallCardRefs.current[index] = element }} />)}</div>
-      </section>
       <a className={styles.allWork} href="#contact">More selected work <Arrow /></a>
     </section>
     {showFooter && <PortfolioFooter />}
