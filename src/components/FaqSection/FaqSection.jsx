@@ -55,7 +55,7 @@ export function FaqSection() {
     gsap.from(`.${styles.item}`, { y: 36, opacity: 0, stagger: 0.065, duration: 0.58, ease: 'power3.out', scrollTrigger: { trigger: root.current, start: 'top 70%', once: true } })
   }, { scope: root, dependencies: [reducedMotion] })
   return <section ref={root} className={styles.faq} aria-labelledby="faq-title">
-    <div className={styles.heading}><p>Everything you need to know</p><h2 id="faq-title">From pricing and timelines to production support. Here are the answers to the questions we get asked most often.</h2></div>
+    <div className={styles.heading}><p>Everything you need to know</p><h2 id="faq-title">Common questions, answered: from pricing to production support.</h2></div>
     <div className={styles.columns}>{[questions.slice(0, 5), questions.slice(5)].map((column, columnIndex) => <div className={styles.column} key={columnIndex}>{column.map((item, itemIndex) => { const index = itemIndex + columnIndex * 5; return <Question key={item[0]} item={item} index={index} active={active === index} onToggle={() => setActive(active === index ? -1 : index)} /> })}</div>)}</div>
   </section>
 }
