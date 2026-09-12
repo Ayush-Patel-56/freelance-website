@@ -143,7 +143,7 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
   }, { scope: root, dependencies: [activeSmallProject, reducedMotion] })
 
   return <div ref={root} className={styles.portfolio}>
-    {showNav && <nav className={styles.nav} aria-label="Primary navigation"><a className={styles.brand} href="#top"><i /> Alex Rivera <b>⌄</b></a><div className={styles.navLinks}><a href="#work">Our work</a><a href="#contact">Contact <Arrow /></a></div></nav>}
+    {showNav && <nav className={styles.nav} aria-label="Primary navigation"><a className={styles.brand} href="#top"><i /> LitmusFront <b>⌄</b></a><div className={styles.navLinks}><a href="#work">Our work</a><a href="#contact">Contact <Arrow /></a></div></nav>}
     {showHero && <header id="top" className={styles.hero}>
       <p className={styles.eyebrow}><span /> Independent digital designer · 2026</p>
       <h1 className={styles.heroTitle} aria-label="Digital systems built to scale."><span>Digital</span><span>systems</span><span className={styles.offsetLine}>built to</span><span><i>scale.</i></span></h1>
