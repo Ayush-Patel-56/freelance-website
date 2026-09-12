@@ -138,7 +138,7 @@ export function TrustAndAbout() {
   return <div ref={root}>
     <section className={styles.clients} aria-labelledby="clients-title">
       <p id="clients-title">Selected work</p>
-      <h2>From academic management systems and healthcare portfolios to business websites and fitness platforms, we build useful digital products that are ready to grow.</h2>
+      <h2>We build useful digital products, engineered to grow with you.</h2>
       <div className={styles.logoRows}>
         {clientRows.map((row, rowIndex) => <div className={`${styles.logoRow} ${rowIndex === 0 ? styles.slideLeft : styles.slideRight}`} key={rowIndex}>
           {[...row, ...row].map((client, index) => <div className={styles.logo} key={`${client}-${index}`}>{client}</div>)}
