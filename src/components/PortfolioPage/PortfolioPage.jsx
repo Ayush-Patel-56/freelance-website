@@ -77,7 +77,7 @@ function WorkCard({ project, isActive, onActivate, onDeactivate, cardRef }) {
     if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onActivate() }
   }
   const onClick = () => { if (isActive && onDeactivate) onDeactivate(); else onActivate() }
-  return <article ref={cardRef} className={`${styles.workCard} ${isActive ? styles.active : ''}`} onMouseEnter={onActivate} onMouseLeave={onDeactivate} onFocus={onActivate} onClick={onClick} onKeyDown={onKeyDown} tabIndex="0" aria-label={`${project.title}, ${project.year}`}>
+  return <article ref={cardRef} className={`${styles.workCard} ${isActive ? styles.active : ''}`} onClick={onClick} onKeyDown={onKeyDown} tabIndex="0" aria-label={`${project.title}, ${project.year}`}>
     <div className={styles.cardTop}>
       <span className={styles.projectNumber}>{project.number}</span>
       <h3>{project.title} <em>({project.year})</em></h3>
@@ -92,7 +92,7 @@ function WorkCard({ project, isActive, onActivate, onDeactivate, cardRef }) {
 }
 
 export function PortfolioPage({ showNav = true, showFooter = true, showHero = true }) {
-  const [activeProject, setActiveProject] = useState(0)
+  const [activeProject, setActiveProject] = useState(null)
   const [activeSmallProject, setActiveSmallProject] = useState(null)
   const root = useRef(null)
   const cardRefs = useRef([])
@@ -151,7 +151,7 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
     </header>}
     <section id="work" className={`${styles.work} ${styles.reveal}`} aria-labelledby="work-heading">
       <div className={styles.workHeading}><p>01 - 03</p><h2 id="work-heading">Projects<span>.</span></h2><p>A considered collection<br />of recent collaborations.</p></div>
-      <div className={styles.projectList}>{projects.map((project, index) => <WorkCard key={project.title} project={project} isActive={index === activeProject} onActivate={() => setActiveProject(index)} cardRef={(element) => { cardRefs.current[index] = element }} />)}</div>
+      <div className={styles.projectList}>{projects.map((project, index) => <WorkCard key={project.title} project={project} isActive={index === activeProject} onActivate={() => setActiveProject(index)} onDeactivate={() => setActiveProject(null)} cardRef={(element) => { cardRefs.current[index] = element }} />)}</div>
       <section className={styles.smallScale} aria-labelledby="small-scale-heading">
         <div className={styles.smallProjectsHeading}><p>04</p><h2 id="small-scale-heading">Small Scale Projects<span>.</span></h2><p>A focused collection<br />of smaller collaborations.</p></div>
         <div className={styles.projectList}>{smallScaleProjects.map((project, index) => <WorkCard key={project.title} project={project} isActive={index === activeSmallProject} onActivate={() => setActiveSmallProject(index)} onDeactivate={() => setActiveSmallProject(null)} cardRef={(element) => { smallCardRefs.current[index] = element }} />)}</div>
