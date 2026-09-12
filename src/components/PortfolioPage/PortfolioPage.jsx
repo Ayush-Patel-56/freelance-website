@@ -149,7 +149,7 @@ export function PortfolioPage({ showNav = true, showFooter = true, showHero = tr
       <div className={styles.heroBottom}><div className={styles.socialPills}><a href="https://linkedin.com">Li</a><a href="https://instagram.com">In</a></div><a className={styles.roundButton} href="#work">Explore work <span>↓</span></a></div>
     </header>}
     <section id="work" className={`${styles.work} ${styles.reveal}`} aria-labelledby="work-heading">
-      <div className={styles.workHeading}><p>01 — 03</p><h2 id="work-heading">Projects<span>.</span></h2><p>A considered collection<br />of recent collaborations.</p></div>
+      <div className={styles.workHeading}><p>01 - 03</p><h2 id="work-heading">Projects<span>.</span></h2><p>A considered collection<br />of recent collaborations.</p></div>
       <div className={styles.projectList}>{projects.map((project, index) => <WorkCard key={project.title} project={project} isActive={index === activeProject} onActivate={() => setActiveProject(index)} cardRef={(element) => { cardRefs.current[index] = element }} />)}</div>
       <section className={styles.smallScale} aria-labelledby="small-scale-heading">
         <div className={styles.smallProjectsHeading}><p>04</p><h2 id="small-scale-heading">Small Scale Projects<span>.</span></h2><p>A focused collection<br />of smaller collaborations.</p></div>

@@ -5,16 +5,16 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import styles from './FaqSection.module.css'
 
 const questions = [
-  ['Who do you typically work with?', 'We partner with ambitious founders, growing teams, established businesses, and agencies that value thoughtful design and a strategic approach.', 'clients'],
-  ['How much does a project cost?', 'Every project is shaped around its goals and scope. After our first conversation, we share a transparent proposal with clear milestones and investment.', 'pricing'],
-  ['How long does a typical project take?', 'Most product and platform projects take between four and eight weeks, depending on the scope, feedback rhythm, and selected deliverables.', 'timeline'],
-  ['What can I expect from our collaboration?', 'You can expect clear communication, honest feedback, and a structured process from start to finish. The best outcomes come from close collaboration.', 'collaboration'],
-  ['What do you need to get started?', 'A clear view of your business, goals, and audience is the best start. If you have materials ready, great—if not, we will guide the discovery process.', 'discovery'],
-  ['Can you help with product design, development, or both?', 'Yes. We can support product strategy, UX and UI design, web and mobile development, AI workflows, or a combined delivery that brings every part together.', 'services'],
-  ['How do you choose the right technology?', 'We select the tools, architecture, and platforms around your users, goals, operational needs, and the scale you expect after launch.', 'development'],
-  ['Will I be able to edit the website myself?', 'Yes. Every build includes an intuitive CMS so you can update content confidently without relying on a developer for everyday changes.', 'editing'],
-  ['Do you provide support after launch?', 'Yes. Launch is only the beginning. We are available for support, new sections, improvements, and ongoing maintenance as your business evolves.', 'support'],
-  ['Is every website optimized for SEO and performance?', 'Yes. Accessibility, responsive design, technical SEO, and performance are integrated from the beginning, not added as an afterthought.', 'performance'],
+  ['Who do you typically work with?', 'Startups, small businesses, and individual founders who need a working product without hiring a full in-house team.', 'clients'],
+  ['Can you help with both product design and development?', 'Yes, we handle end-to-end builds, from UI/UX decisions through to shipped, production-ready code.', 'services'],
+  ['How much does a project cost?', 'Every project is scoped individually, with no fixed packages. After an initial conversation, we send a transparent proposal with everything outlined.', 'pricing'],
+  ['How do you choose the right technology?', "Based on your product's actual needs, not trends. We pick the stack that fits your scale, budget, and long-term maintenance.", 'development'],
+  ['How long does a typical project take?', 'Most projects take a few weeks, depending on scope. We agree on a timeline and milestones before starting.', 'timeline'],
+  ['Will I be able to make changes after launch?', 'Yes, we build with clean, documented code, so you or any future developer can maintain and extend it without starting from scratch.', 'editing'],
+  ['What can I expect from our collaboration?', 'Direct access to the engineers doing the work, with no account managers and no handoffs. Clear updates throughout, and honest answers if something needs to change.', 'collaboration'],
+  ['Do you provide support after launch?', 'Yes. We offer support after delivery, and ongoing maintenance if you need it.', 'support'],
+  ['What do you need to get started?', "A clear idea of what you're building and who it's for. We'll turn that into a scoped plan together during discovery.", 'discovery'],
+  ['Is every project built with performance and security in mind?', 'Yes, performance, security, and scalability are considered from day one, not bolted on after the fact.', 'performance'],
 ]
 
 function FaqIcon({ name }) {
@@ -55,7 +55,7 @@ export function FaqSection() {
     gsap.from(`.${styles.item}`, { y: 36, opacity: 0, stagger: 0.065, duration: 0.58, ease: 'power3.out', scrollTrigger: { trigger: root.current, start: 'top 70%', once: true } })
   }, { scope: root, dependencies: [reducedMotion] })
   return <section ref={root} className={styles.faq} aria-labelledby="faq-title">
-    <div className={styles.heading}><p>Everything you need to know</p><h2 id="faq-title">From pricing and timelines to Webflow and long-term support. Here are the answers to the questions we get asked most often.</h2></div>
+    <div className={styles.heading}><p>Everything you need to know</p><h2 id="faq-title">From pricing and timelines to production support. Here are the answers to the questions we get asked most often.</h2></div>
     <div className={styles.columns}>{[questions.slice(0, 5), questions.slice(5)].map((column, columnIndex) => <div className={styles.column} key={columnIndex}>{column.map((item, itemIndex) => { const index = itemIndex + columnIndex * 5; return <Question key={item[0]} item={item} index={index} active={active === index} onToggle={() => setActive(active === index ? -1 : index)} /> })}</div>)}</div>
   </section>
 }
